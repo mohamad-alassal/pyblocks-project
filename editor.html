@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PythonBlocks – Block Editor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- ملف CSS خاص بالمحرر -->
+    <link rel="stylesheet" href="Css/editor.css">
+    <!-- Google Blockly Scripts -->
+    <script src="https://unpkg.com/blockly/blockly_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/python_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/msg/en.js"></script>
+</head>
+
+<body>
+
+    <!-- ===== EDITOR HEADER ===== -->
+    <!-- شريط علوي خاص بالمحرر -->
+    <header class="editor-header">
+        <!-- زر الرجوع + اسم المشروع -->
+        <div class="header-left">
+            <a href="Projects.html" class="back-btn" title="Back to projects">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div class="project-info">
+                <h1 class="project-name" id="projectName">My Project</h1>
+                <span class="project-status" id="projectStatus">● SYNC LIVE</span>
+            </div>
+        </div>
+
+        <!-- أزرار الإجراءات على اليمين -->
+        <div class="header-right">
+            <!-- زر تبديل الوضع الداكن -->
+            <button class="header-btn copy-btn" id="darkToggle" title="Toggle dark mode">🌙</button>
+            <button class="header-btn copy-btn" id="copyCodeBtn" title="Copy Python code">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" 
+                    stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy Code
+            </button>
+            <button class="header-btn save-btn" id="forceSaveBtn" title="Force save">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" 
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                    <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+                FORCE SAVE
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== MAIN EDITOR LAYOUT ===== -->
+    <main class="editor-layout">
+
+        <!-- ===== WORKSPACE: Blockly Editor Workspace ===== -->
+        <section class="workspace-section">
+            <div class="canvas-tabs">
+                <div class="canvas-tab">
+                    <span id="workspaceStatus">// READY</span>
+                </div>
+                <button class="tab-info" id="workspaceInfo">
+                    Drag blocks to build your Python logic
+                </button>
+            </div>
+            
+            <div id="blocklyArea" style="width: 100%; height: calc(100% - 41px); position: relative; flex: 1;">
+                <div id="blocklyDiv" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
+            </div>
+        </section>
+
+        <!-- ===== BOTTOM PANEL: Code Preview & Console Output side-by-side ===== -->
+        <section class="bottom-panel" id="bottomPanel">
+            
+            <!-- شريط التحكم باللوحة السفلية (التصغير والتوسيع) -->
+            <div class="bottom-panel-bar" id="bottomPanelBar">
+                <div class="bar-left">
+                    <span class="bar-icon">💻</span>
+                    <span class="bar-title">Console & Code Preview (الكونسول ومعاينة الكود)</span>
+                </div>
+                <button class="bar-toggle-btn" id="togglePanelBtn" title="Minimize/Maximize panel">
+                    ▼ Minimize
+                </button>
+            </div>
+
+            <div class="bottom-panel-content" id="bottomPanelContent">
+                <!-- 1. Code Preview Panel (Left) -->
+                <div class="panel-half code-panel">
+                    <div class="panel-header code-panel-header">
+                        <span class="panel-icon">💻</span>
+                        <span class="panel-title">CODE PREVIEW</span>
+                    </div>
+                    <div class="panel-body">
+                        <pre class="code-display" id="codeDisplay"># Your Python code will appear here...</pre>
+                    </div>
+                </div>
+
+                <!-- 2. Console Output Panel (Right) -->
+                <div class="panel-half console-panel">
+                    <div class="panel-header console-panel-header">
+                        <span class="panel-icon">▶</span>
+                        <span class="panel-title">CONSOLE OUTPUT</span>
+                        <button class="console-clear-btn" onclick="clearConsole()" title="Clear Console">✕</button>
+                    </div>
+                    <div class="panel-body console-body">
+                        <pre class="console-display" id="consoleDisplay">Ready to run...</pre>
+                        <!-- زر تشغيل الكود في الكونسول -->
+                        <button class="run-script-btn" id="runBtn" title="Run Python Script">
+                            <span>✈</span> RUN_SCRIPT
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="javascript/editor.js"></script>
+
+</body>
+</html>

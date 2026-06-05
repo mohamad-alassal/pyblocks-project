@@ -1,0 +1,542 @@
+/* =============================================
+   EDITOR.CSS - تصميم محرر الكتل
+   ============================================= */
+
+/* ===== VARIABLES ===== */
+:root {
+    --primary:      #4f46e5;
+    --primary-dark: #3730a3;
+    --text-dark:    #0f172a;
+    --text-mid:     #374151;
+    --text-light:   #64748b;
+    --bg:           #ffffff;
+    --bg-dark:      #f8f9fa;
+    --border:       #e5e7eb;
+    --shadow:       0 2px 10px rgba(0,0,0,0.05);
+    
+    /* ألوان الكتل */
+    --logic-color:  #5c7cfa;
+    --loops-color:  #20c997;
+    --math-color:   #ff6b6b;
+    --text-color:   #748ffc;
+    --lists-color:  #ffa94d;
+    --dicts-color:  #da77f2;
+}
+
+/* ===== DARK MODE OVERRIDES ===== */
+body.dark {
+    --bg:           #0f172a;
+    --bg-dark:      #1e293b;
+    --text-dark:    #f1f5f9;
+    --text-mid:     #cbd5e1;
+    --text-light:   #94a3b8;
+    --border:       #334155;
+    --shadow:       0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-dark);
+    overflow: hidden; /* منع scroll الصفحة الأساسية */
+}
+
+/* =============================================
+   EDITOR HEADER - الشريط العلوي
+   ============================================= */
+.editor-header {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+}
+
+/* الجزء الأيسر: زر الرجوع + اسم المشروع */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* زر الرجوع */
+.back-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* معلومات المشروع */
+.project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.project-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.project-status {
+    font-size: 11px;
+    color: #10b981;
+    font-weight: 600;
+}
+
+/* الجزء الأيمن: أزرار الإجراءات */
+.header-right {
+    display: flex;
+    gap: 8px;
+}
+
+/* أزرار الهيدر */
+.header-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease;
+}
+
+/* زر Copy Code */
+.copy-btn {
+    background: var(--bg-dark);
+    color: var(--text-mid);
+    border: 1px solid var(--border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.copy-btn:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* زر Force Save */
+.save-btn {
+    background: #8b5cf6;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #7c3aed;
+    transform: translateY(-1px);
+}
+
+/* زر Run */
+.run-btn {
+    background: var(--primary);
+    color: white;
+    padding: 8px 20px;
+}
+
+.run-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* =============================================
+   EDITOR LAYOUT - تخطيط المحرر الجديد (علوي/سفلي)
+   ============================================= */
+.editor-layout {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 56px); /* الارتفاع الكامل ناقص الهيدر */
+    overflow: hidden;
+}
+
+/* قسم مساحة عمل Blockly (العلوي) */
+.workspace-section {
+    flex: 1; /* يأخذ كل المساحة المتاحة رأسياً */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+}
+
+/* شريط تبويبات مساحة العمل */
+.canvas-tabs {
+    background: #6366f1;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 41px;
+}
+
+.canvas-tab {
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.tab-info {
+    font-size: 11px;
+    color: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.15);
+    border: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: default;
+    font-family: 'Inter', sans-serif;
+}
+
+/* اللوحة السفلية (عرض الكود والكونسول جنباً إلى جنب) */
+.bottom-panel {
+    height: 320px; /* الارتفاع الافتراضي للوحة السفلية */
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* حالة التصغير للوحة السفلية */
+.bottom-panel.minimized {
+    height: 38px !important;
+}
+
+/* شريط التحكم باللوحة السفلية */
+.bottom-panel-bar {
+    height: 38px;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease, border-color 0.3s ease;
+}
+
+.bottom-panel-bar:hover {
+    background: var(--border);
+}
+
+.bar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bar-icon {
+    font-size: 14px;
+}
+
+.bar-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-mid);
+    font-family: 'Inter', sans-serif;
+}
+
+.bar-toggle-btn {
+    background: var(--primary-light);
+    color: var(--primary);
+    border: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.bar-toggle-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* محتوى اللوحة السفلية عند التوسيع */
+.bottom-panel-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: calc(100% - 38px);
+    overflow: hidden;
+}
+
+/* نصف اللوحة */
+.panel-half {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.code-panel {
+    border-right: 1px solid var(--border);
+}
+
+/* رأس اللوحة */
+.panel-header {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+    height: 36px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* رأس لوحة الكود (لون أصفر فاتح) */
+.code-panel-header {
+    background-color: #fef9c3;
+    color: #854d0e;
+}
+
+body.dark .code-panel-header {
+    background-color: #3e3e1a;
+    color: #fef08a;
+}
+
+/* رأس لوحة الكونسول (لون أخضر فاتح) */
+.console-panel-header {
+    background-color: #dcfce7;
+    color: #166534;
+    position: relative;
+}
+
+body.dark .console-panel-header {
+    background-color: #143e21;
+    color: #86efac;
+}
+
+/* جسم اللوحة */
+.panel-body {
+    flex: 1;
+    overflow: auto;
+    padding: 12px;
+    position: relative;
+}
+
+/* كونسول مخصص بخلفية سوداء */
+.console-body {
+    background: #0f172a;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 52px; /* مساحة لزر تشغيل السكريبت المطلق */
+}
+
+/* عرض كود بايثون */
+.code-display {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+    font-family: 'Consolas', 'Monaco', monospace;
+    white-space: pre-wrap;
+    height: 100%;
+    overflow: auto;
+    margin: 0;
+}
+
+/* عرض مخرجات الكونسول */
+.console-display {
+    background: transparent;
+    color: #10b981;
+    padding: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    font-family: 'Consolas', 'Monaco', monospace;
+    white-space: pre-wrap;
+    flex: 1;
+    overflow: auto;
+    margin: 0;
+}
+
+/* زر مسح الكونسول */
+.console-clear-btn {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: inherit;
+    font-weight: bold;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.console-clear-btn:hover {
+    opacity: 1;
+}
+
+/* زر تشغيل السكريبت (RUN_SCRIPT) أسفل اليمين في الكونسول */
+.run-script-btn {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    background-color: #6366f1;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+    transition: background-color 0.2s, transform 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.run-script-btn:hover {
+    background-color: #4f46e5;
+    transform: translateY(-1px);
+}
+
+.run-script-btn span {
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+    .bottom-panel {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        height: 380px; /* جعل اللوحة السفلية أطول قليلاً على الموبايل لتتسع للقسمين فوق بعضهما */
+    }
+
+    .code-panel {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+}
+
+@media (max-width: 600px) {
+    .editor-header {
+        padding: 8px 12px;
+        height: auto;
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    
+    .header-left {
+        justify-content: space-between;
+    }
+    
+    .header-right {
+        justify-content: space-between;
+    }
+
+    .editor-layout {
+        height: calc(100vh - 100px); /* تعويض زيادة حجم الهيدر */
+    }
+}
+
+/* =============================================
+   BLOCKLY STYLING OVERRIDES - تصميم مخصص للبلوكات
+   ============================================= */
+
+/* تخصيص مظهر شريط فئات البلوكات (Toolbox) */
+.blocklyToolboxDiv {
+    background-color: var(--bg) !important;
+    border-right: 1px solid var(--border) !important;
+    color: var(--text-dark) !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* تخصيص صفوف الفئات */
+.blocklyTreeRow {
+    padding: 8px 12px !important;
+    margin: 4px 8px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border: none !important;
+    transition: all 0.2s ease !important;
+}
+
+/* عند تمرير الماوس فوق فئة */
+.blocklyTreeRow:hover {
+    background-color: var(--bg-dark) !important;
+}
+
+/* عند اختيار فئة */
+.blocklyTreeSelected {
+    background-color: var(--primary-light) !important;
+    color: var(--primary) !important;
+}
+
+body.dark .blocklyTreeSelected {
+    background-color: rgba(79, 70, 229, 0.2) !important;
+    color: #818cf8 !important;
+}
+
+/* نصوص الفئات */
+.blocklyTreeLabel {
+    font-family: 'Inter', sans-serif !important;
+    cursor: pointer !important;
+}
+
+/* خلفية قائمة البلوكات الفرعية (Flyout) */
+.blocklyFlyoutBackground {
+    fill: var(--bg-dark) !important;
+    fill-opacity: 0.95 !important;
+}
+
+/* خلفية مساحة العمل الرئيسية */
+.blocklyMainBackground {
+    stroke: none !important;
+    fill: var(--bg-dark) !important;
+}
+
+/* شريط التمرير */
+.blocklyScrollbarHandle {
+    fill: var(--primary) !important;
+    fill-opacity: 0.3 !important;
+    rx: 4px !important;
+}
+
+.blocklyScrollbarHandle:hover {
+    fill-opacity: 0.6 !important;
+}
+

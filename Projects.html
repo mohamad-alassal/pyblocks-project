@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PythonBlocks – My Missions</title>
+    <!-- نفس خط الـ index -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Css/projects.css">
+</head>
+
+<body class="projects-page">
+
+    <!-- ===== NAVBAR ===== -->
+    <!-- نفس شريط التنقل اللي في index.html -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <div class="logo-icon">P</div>
+            <span class="logo-text">PythonBlocks.</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="Projects.html" class="nav-link active">Projects</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
+        </div>
+    </nav>
+
+    <!-- ===== DASHBOARD CONTENT ===== -->
+    <!-- المحتوى الرئيسي لصفحة المشاريع -->
+    <main class="dashboard">
+
+        <!-- رأس الصفحة: العنوان وزر إنشاء مشروع جديد -->
+        <div class="dashboard-header">
+
+            <!-- القسم الأيسر: بادج + عنوان + وصف -->
+            <div class="dashboard-title-group">
+                <!-- بادج صغير فوق العنوان -->
+                <span class="dashboard-badge">✨ PERSONAL HUB</span>
+                <h1 class="dashboard-title">My Missions</h1>
+                <p class="dashboard-subtitle">Continue your visual programming journey.</p>
+            </div>
+
+            <!-- زر إنشاء مشروع جديد على اليمين -->
+            <!-- عند الضغط عليه يفتح نافذة منبثقة (Modal) -->
+            <button class="new-mission-btn" onclick="openModal()">
+                + New Mission
+            </button>
+        </div>
+
+        <!-- شريط البحث -->
+        <div class="search-bar-wrapper">
+            <!-- أيقونة البحث -->
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <!-- حقل البحث - يفلتر المشاريع وهي تُكتب -->
+            <input
+                type="text"
+                class="search-bar"
+                id="searchInput"
+                placeholder="Search by project name..."
+                oninput="filterProjects()"
+            />
+        </div>
+
+        <!-- شبكة بطاقات المشاريع -->
+        <!-- كل بطاقة تمثل مشروع واحد -->
+        <div class="projects-grid" id="projectsGrid">
+            <!-- المشاريع تُضاف هنا تلقائياً عبر JavaScript -->
+        </div>
+
+        <!-- رسالة تظهر لما ما في مشاريع تطابق البحث -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-icon">📭</div>
+            <p>No projects found. Try a different search or create a new one!</p>
+        </div>
+
+    </main>
+
+    <!-- ===== MODAL: إنشاء مشروع جديد ===== -->
+    <!-- النافذة المنبثقة - مخفية بالبداية، تظهر عند ضغط "New Mission" -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+        <div class="modal">
+            <h2 class="modal-title">Create New Mission</h2>
+            <p class="modal-subtitle">Give your project a name to get started.</p>
+
+            <!-- حقل إدخال اسم المشروع -->
+            <input
+                type="text"
+                class="modal-input"
+                id="projectNameInput"
+                placeholder="e.g. My Calculator"
+                maxlength="40"
+            />
+
+            <!-- أزرار الـ Modal -->
+            <div class="modal-buttons">
+                <!-- زر إلغاء -->
+                <button class="modal-cancel-btn" onclick="closeModal()">Cancel</button>
+                <!-- زر إنشاء - يضيف المشروع للقائمة -->
+                <button class="modal-create-btn" onclick="createProject()">Create →</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="javascript/projects.js"></script>
+
+</body>
+</html>
