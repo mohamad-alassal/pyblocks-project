@@ -132,6 +132,59 @@ const TOOLBOX_DEFINITION = {
         },
         {
             "kind": "category",
+            "name": "Python Libraries (مكتبات بايثون)",
+            "colour": "210",
+            "contents": [
+                {
+                    "kind": "label",
+                    "text": "Random (عشوائي)"
+                },
+                { "kind": "block", "type": "python_random_randint" },
+                { "kind": "block", "type": "python_random_choice" },
+                { "kind": "block", "type": "python_random_random" },
+                {
+                    "kind": "label",
+                    "text": "Time (الوقت)"
+                },
+                { "kind": "block", "type": "python_time_sleep" },
+                { "kind": "block", "type": "python_time_time" },
+                {
+                    "kind": "label",
+                    "text": "Math Advanced (رياضيات متقدمة)"
+                },
+                { "kind": "block", "type": "python_math_sqrt" },
+                { "kind": "block", "type": "python_math_pow" },
+                { "kind": "block", "type": "python_math_floor" },
+                { "kind": "block", "type": "python_math_ceil" },
+                { "kind": "block", "type": "python_math_pi" },
+                {
+                    "kind": "label",
+                    "text": "Datetime (التاريخ)"
+                },
+                { "kind": "block", "type": "python_datetime_now" },
+                { "kind": "block", "type": "python_datetime_year" },
+                { "kind": "block", "type": "python_datetime_month" },
+                { "kind": "block", "type": "python_datetime_day" }
+            ]
+        },
+        {
+            "kind": "category",
+            "name": "Python Built-in (دوال مدمجة)",
+            "colour": "160",
+            "contents": [
+                { "kind": "block", "type": "python_input" },
+                { "kind": "block", "type": "python_int" },
+                { "kind": "block", "type": "python_float" },
+                { "kind": "block", "type": "python_str" },
+                { "kind": "block", "type": "python_len" },
+                { "kind": "block", "type": "python_range" }
+            ]
+        },
+        {
+            "kind": "sep"
+        },
+        {
+            "kind": "category",
             "name": "Variables (المتغيرات)",
             "custom": "VARIABLE", // تصنيف ديناميكي لإنشاء وإدارة المتغيرات
             "categorystyle": "variable_category"
@@ -145,18 +198,18 @@ const TOOLBOX_DEFINITION = {
     ]
 };
 
-document.addEventListener('DOMContentLoaded', function() {
-    
+document.addEventListener('DOMContentLoaded', function () {
+
     // التحقق المسبق من الوضع الداكن وتطبيقه على الجسم فوراً لتجنب الوميض الأبيض
     const savedMode = localStorage.getItem('darkMode');
     if (savedMode === 'enabled') {
         document.body.classList.add('dark');
     }
-    
+
     // ===== 1. استخراج معرف المشروع من رابط الصفحة =====
     const urlParams = new URLSearchParams(window.location.search);
     projectId = urlParams.get('project');
-    
+
     if (!projectId) {
         alert('لم يتم تحديد مشروع لفتحه.');
         window.location.href = 'Projects.html';
@@ -213,12 +266,12 @@ function initBlockly() {
     });
 
     // إضافة مستمع لحالة التغيير في مساحة العمل لتحديث كود Python تلقائياً وحفظه تلقائياً
-    workspace.addChangeListener(function(event) {
+    workspace.addChangeListener(function (event) {
         // عدم تحديث الكود إذا كان الحدث عبارة عن حركة كاميرا أو تحديد كتلة فقط
         if (event.type === Blockly.Events.VIEWPORT_CHANGE || event.type === Blockly.Events.SELECTED) {
             return;
         }
-        
+
         // تحديث عرض الكود الرسومي
         updatePythonCodePreview();
 
@@ -227,7 +280,7 @@ function initBlockly() {
     });
 
     // إضافة مستمع لإعادة ضبط حجم Blockly عند تغيير حجم النافذة (خاصة في شاشات الموبايل)
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         Blockly.svgResize(workspace);
     });
 }
@@ -242,7 +295,7 @@ function updatePythonCodePreview() {
     try {
         // استخدام محرك Blockly لتوليد كود بايثون نظيف
         const code = Blockly.Python.workspaceToCode(workspace);
-        
+
         if (code.trim() === '') {
             codeDisplay.textContent = `# اسحب البلوكات إلى مساحة العمل للبدء بالبرمجة!\n# Drag blocks here to get started...\n\nprint("Hello, PythonBlocks!")`;
         } else {
@@ -268,7 +321,7 @@ function loadProjectData() {
         })
         .then(project => {
             projectData = project;
-            
+
             // عرض اسم المشروع
             document.getElementById('projectName').textContent = project.name;
 
@@ -277,10 +330,10 @@ function loadProjectData() {
                 // استعادة حالة الكتل من بيانات الـ JSON المخزنة
                 Blockly.serialization.workspaces.load(project.workspaceState, workspace);
             }
-            
+
             // تحديث الكود لأول مرة بعد التحميل
             updatePythonCodePreview();
-            
+
             if (projectStatus) projectStatus.textContent = '● Ready';
         })
         .catch(error => {
@@ -297,7 +350,7 @@ function autoSaveProject() {
     if (autoSaveTimer) clearTimeout(autoSaveTimer);
 
     // الانتظار لمدة 1.5 ثانية بعد آخر تعديل قبل الحفظ التلقائي
-    autoSaveTimer = setTimeout(function() {
+    autoSaveTimer = setTimeout(function () {
         saveProjectToServer(false); // حفظ تلقائي صامت بدون رسائل تنبيهية
     }, 1500);
 }
@@ -330,43 +383,43 @@ function saveProjectToServer(showFeedback = false) {
             pythonCode: pythonCode
         })
     })
-    .then(response => {
-        if (!response.ok) throw new Error('Save failed');
-        return response.json();
-    })
-    .then(updatedProject => {
-        projectData = updatedProject;
-        if (projectStatus) projectStatus.textContent = '● Saved';
-        
-        if (showFeedback) {
-            const saveBtn = document.getElementById('forceSaveBtn');
-            const originalContent = saveBtn.innerHTML;
-            
-            saveBtn.innerHTML = '✓ SAVED!';
-            saveBtn.style.background = '#10b981';
-            
-            setTimeout(() => {
-                saveBtn.innerHTML = originalContent;
-                saveBtn.style.background = '';
-            }, 1500);
-        }
-    })
-    .catch(error => {
-        console.error('Error saving project:', error);
-        if (projectStatus) projectStatus.textContent = '● Error saving';
-        if (showFeedback) alert('فشل الحفظ التلقائي. يرجى التحقق من اتصالك بالخادم.');
-    });
+        .then(response => {
+            if (!response.ok) throw new Error('Save failed');
+            return response.json();
+        })
+        .then(updatedProject => {
+            projectData = updatedProject;
+            if (projectStatus) projectStatus.textContent = '● Saved';
+
+            if (showFeedback) {
+                const saveBtn = document.getElementById('forceSaveBtn');
+                const originalContent = saveBtn.innerHTML;
+
+                saveBtn.innerHTML = '✓ SAVED!';
+                saveBtn.style.background = '#10b981';
+
+                setTimeout(() => {
+                    saveBtn.innerHTML = originalContent;
+                    saveBtn.style.background = '';
+                }, 1500);
+            }
+        })
+        .catch(error => {
+            console.error('Error saving project:', error);
+            if (projectStatus) projectStatus.textContent = '● Error saving';
+            if (showFeedback) alert('فشل الحفظ التلقائي. يرجى التحقق من اتصالك بالخادم.');
+        });
 }
 
 /**
  * تهيئة أزرار الهيدر والتبديل
  */
 function setupEventListeners() {
-    
+
     // زر الحفظ اليدوي (FORCE SAVE)
     const forceSaveBtn = document.getElementById('forceSaveBtn');
     if (forceSaveBtn) {
-        forceSaveBtn.addEventListener('click', function() {
+        forceSaveBtn.addEventListener('click', function () {
             saveProjectToServer(true);
         });
     }
@@ -374,7 +427,7 @@ function setupEventListeners() {
     // زر نسخ الكود البرمجي
     const copyCodeBtn = document.getElementById('copyCodeBtn');
     if (copyCodeBtn) {
-        copyCodeBtn.addEventListener('click', function() {
+        copyCodeBtn.addEventListener('click', function () {
             const code = Blockly.Python.workspaceToCode(workspace);
             navigator.clipboard.writeText(code).then(() => {
                 const originalText = copyCodeBtn.innerHTML;
@@ -396,7 +449,7 @@ function setupEventListeners() {
     // زر تشغيل الكود (RUN IT NOW)
     const runBtn = document.getElementById('runBtn');
     if (runBtn) {
-        runBtn.addEventListener('click', function() {
+        runBtn.addEventListener('click', function () {
             runPythonCode();
         });
     }
@@ -410,7 +463,7 @@ function runPythonCode() {
 
     const code = Blockly.Python.workspaceToCode(workspace);
     const consoleDisplay = document.getElementById('consoleDisplay');
-    
+
     consoleDisplay.textContent = '>>> Running code on server...\n';
 
     // حفظ التغييرات أولاً قبل التشغيل
@@ -424,35 +477,35 @@ function runPythonCode() {
         },
         body: JSON.stringify({ code: code })
     })
-    .then(response => {
-        if (!response.ok) throw new Error('Server error running code');
-        return response.json();
-    })
-    .then(result => {
-        consoleDisplay.textContent = ''; // تفريغ
-        
-        // طباعة المخرجات القياسية stdout إن وجدت
-        if (result.stdout) {
-            consoleDisplay.textContent += result.stdout;
-        }
+        .then(response => {
+            if (!response.ok) throw new Error('Server error running code');
+            return response.json();
+        })
+        .then(result => {
+            consoleDisplay.textContent = ''; // تفريغ
 
-        // طباعة الأخطاء stderr باللون الأحمر أو بشكل مميز إن وجدت
-        if (result.stderr) {
-            consoleDisplay.textContent += `\n[ERROR]:\n${result.stderr}`;
-        }
+            // طباعة المخرجات القياسية stdout إن وجدت
+            if (result.stdout) {
+                consoleDisplay.textContent += result.stdout;
+            }
 
-        // التنبيه في حالة انتهاء المهلة (Loop لانهائي)
-        if (result.timedOut) {
-            consoleDisplay.textContent += `\n\n[TIMEOUT]: تم إيقاف البرنامج قسراً لتجاوزه حد 5 ثوانٍ (قد يحتوي كودك على تكرار لانهائي)`;
-        }
+            // طباعة الأخطاء stderr باللون الأحمر أو بشكل مميز إن وجدت
+            if (result.stderr) {
+                consoleDisplay.textContent += `\n[ERROR]:\n${result.stderr}`;
+            }
 
-        // طباعة سطر النهاية
-        consoleDisplay.textContent += `\n\n>>> Execution completed (Exit code: ${result.exitCode})`;
-    })
-    .catch(error => {
-        console.error('Error running Python code:', error);
-        consoleDisplay.textContent += `\n[CRITICAL ERROR]: فشل في الاتصال بالخادم لتشغيل الكود.`;
-    });
+            // التنبيه في حالة انتهاء المهلة (Loop لانهائي)
+            if (result.timedOut) {
+                consoleDisplay.textContent += `\n\n[TIMEOUT]: تم إيقاف البرنامج قسراً لتجاوزه حد 5 ثوانٍ (قد يحتوي كودك على تكرار لانهائي)`;
+            }
+
+            // طباعة سطر النهاية
+            consoleDisplay.textContent += `\n\n>>> Execution completed (Exit code: ${result.exitCode})`;
+        })
+        .catch(error => {
+            console.error('Error running Python code:', error);
+            consoleDisplay.textContent += `\n[CRITICAL ERROR]: فشل في الاتصال بالخادم لتشغيل الكود.`;
+        });
 }
 
 
@@ -472,7 +525,7 @@ function clearConsole() {
 function initDarkMode() {
     const darkToggle = document.getElementById('darkToggle');
     const savedMode = localStorage.getItem('darkMode');
-    
+
     // التحقق المسبق وتأكيد حالة الأيقونة والثيم
     if (savedMode === 'enabled') {
         if (darkToggle) darkToggle.textContent = '☀️';
@@ -480,10 +533,10 @@ function initDarkMode() {
     }
 
     if (darkToggle) {
-        darkToggle.addEventListener('click', function() {
+        darkToggle.addEventListener('click', function () {
             document.body.classList.toggle('dark');
             const isDark = document.body.classList.contains('dark');
-            
+
             if (isDark) {
                 localStorage.setItem('darkMode', 'enabled');
                 darkToggle.textContent = '☀️';
@@ -504,7 +557,7 @@ function initDarkMode() {
  */
 function setBlocklyTheme(isDark) {
     if (!workspace) return;
-    
+
     try {
         if (isDark && darkTheme) {
             workspace.setTheme(darkTheme);
@@ -527,13 +580,13 @@ function initBottomPanel() {
     if (!bottomPanel || !bottomPanelBar || !togglePanelBtn) return;
 
     // عند الضغط على شريط اللوحة السفلية
-    bottomPanelBar.addEventListener('click', function(e) {
+    bottomPanelBar.addEventListener('click', function (e) {
         if (e.target === togglePanelBtn) return;
         toggleCollapse();
     });
 
     // عند الضغط على زر التبديل
-    togglePanelBtn.addEventListener('click', function(e) {
+    togglePanelBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         toggleCollapse();
     });
@@ -541,7 +594,7 @@ function initBottomPanel() {
     function toggleCollapse() {
         bottomPanel.classList.toggle('minimized');
         const isMinimized = bottomPanel.classList.contains('minimized');
-        
+
         if (isMinimized) {
             togglePanelBtn.textContent = '▲ Expand (توسيع)';
         } else {
@@ -552,9 +605,9 @@ function initBottomPanel() {
         if (workspace) {
             Blockly.svgResize(workspace);
         }
-        
+
         // إعادة تحديث الحجم بعد انتهاء حركة الأنيماشين
-        setTimeout(function() {
+        setTimeout(function () {
             if (workspace) {
                 Blockly.svgResize(workspace);
             }

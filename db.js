@@ -13,7 +13,7 @@ function initDB() {
     if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir);
     }
-    
+
     // إنشاء ملف projects.json بمصفوفة فارغة إذا لم يكن موجوداً
     if (!fs.existsSync(dbPath)) {
         fs.writeFileSync(dbPath, JSON.stringify([], null, 2), 'utf-8');
@@ -62,9 +62,17 @@ function getProject(id) {
  * إنشاء مشروع جديد وحفظه
  * @param {string} name اسم المشروع
  * @returns {Object} كائن المشروع المنشأ حديثاً
+ * @throws {Error} إذا كان اسم المشروع موجود مسبقاً
  */
 function createProject(name) {
     const projects = getProjects();
+
+    // التحقق من عدم وجود مشروع بنفس الاسم
+    const existingProject = projects.find(p => p.name.toLowerCase() === name.toLowerCase());
+    if (existingProject) {
+        throw new Error('PROJECT_NAME_EXISTS');
+    }
+
     const newProject = {
         id: Date.now(), // استخدام الوقت الحالي كمعرّف فريد ومميز
         name: name,
@@ -94,7 +102,7 @@ function updateProject(id, updateData) {
         ...projects[index],
         ...updateData,
         // تأكيد عدم تغيير المعرف
-        id: projects[index].id 
+        id: projects[index].id
     };
 
     saveProjects(projects);

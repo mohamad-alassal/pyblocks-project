@@ -5,19 +5,19 @@
 // مصفوفة لتخزين المشاريع محلياً بعد جلبها من الخادم (لتسهيل البحث والفلترة السريعة)
 let localProjects = [];
 
-document.addEventListener('DOMContentLoaded', function() {
-    
+document.addEventListener('DOMContentLoaded', function () {
+
     // ===== DARK MODE - تفعيل وإدارة الوضع الداكن =====
     const darkToggle = document.getElementById('darkToggle');
     const savedMode = localStorage.getItem('darkMode');
-    
+
     if (savedMode === 'enabled') {
         document.body.classList.add('dark');
         if (darkToggle) darkToggle.textContent = '☀️';
     }
 
     if (darkToggle) {
-        darkToggle.addEventListener('click', function() {
+        darkToggle.addEventListener('click', function () {
             document.body.classList.toggle('dark');
             if (document.body.classList.contains('dark')) {
                 localStorage.setItem('darkMode', 'enabled');
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // إضافة مستمع لزر Enter في حقل إدخال اسم المشروع بالنافذة المنبثقة
     const projectNameInput = document.getElementById('projectNameInput');
     if (projectNameInput) {
-        projectNameInput.addEventListener('keypress', function(e) {
+        projectNameInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 createProject();
             }
@@ -69,7 +69,7 @@ function fetchProjects() {
 function displayProjects(projects) {
     const grid = document.getElementById('projectsGrid');
     const emptyState = document.getElementById('emptyState');
-    
+
     if (!grid) return;
     grid.innerHTML = '';
 
@@ -86,7 +86,7 @@ function displayProjects(projects) {
         const card = document.createElement('div');
         card.className = 'project-card';
         // فتح المشروع عند الضغط على البطاقة ككل (مع استثناء زر الحذف)
-        card.addEventListener('click', function(e) {
+        card.addEventListener('click', function (e) {
             if (!e.target.classList.contains('project-card-delete')) {
                 openProject(project.id);
             }
@@ -143,20 +143,27 @@ function createProject() {
         },
         body: JSON.stringify({ name: projectName })
     })
-    .then(response => {
-        if (!response.ok) throw new Error('Failed to create project');
-        return response.json();
-    })
-    .then(newProject => {
-        closeModal();
-        fetchProjects(); // إعادة تحميل القائمة من الخادم
-        // توجيه المستخدم مباشرة لصفحة المحرر الخاصة بالمشروع الجديد
-        openProject(newProject.id);
-    })
-    .catch(error => {
-        console.error('Error creating project:', error);
-        alert('فشل إنشاء المشروع. يرجى المحاولة مرة أخرى.');
-    });
+        .then(response => {
+            if (response.status === 409) {
+                throw new Error('DUPLICATE_NAME');
+            }
+            if (!response.ok) throw new Error('Failed to create project');
+            return response.json();
+        })
+        .then(newProject => {
+            closeModal();
+            fetchProjects(); // إعادة تحميل القائمة من الخادم
+            // توجيه المستخدم مباشرة لصفحة المحرر الخاصة بالمشروع الجديد
+            openProject(newProject.id);
+        })
+        .catch(error => {
+            console.error('Error creating project:', error);
+            if (error.message === 'DUPLICATE_NAME') {
+                alert('⚠️ يوجد مشروع بهذا الاسم مسبقاً!\n\nالرجاء اختيار اسم آخر.');
+            } else {
+                alert('فشل إنشاء المشروع. يرجى المحاولة مرة أخرى.');
+            }
+        });
 }
 
 /**
@@ -175,17 +182,17 @@ function deleteProject(event, projectId) {
     fetch(`/api/projects/${projectId}`, {
         method: 'DELETE'
     })
-    .then(response => {
-        if (!response.ok) throw new Error('Failed to delete project');
-        return response.json();
-    })
-    .then(() => {
-        fetchProjects(); // تحديث الشبكة بعد الحذف
-    })
-    .catch(error => {
-        console.error('Error deleting project:', error);
-        alert('فشل حذف المشروع.');
-    });
+        .then(response => {
+            if (!response.ok) throw new Error('Failed to delete project');
+            return response.json();
+        })
+        .then(() => {
+            fetchProjects(); // تحديث الشبكة بعد الحذف
+        })
+        .catch(error => {
+            console.error('Error deleting project:', error);
+            alert('فشل حذف المشروع.');
+        });
 }
 
 /**
@@ -201,7 +208,7 @@ function openProject(projectId) {
  */
 function filterProjects() {
     const searchValue = document.getElementById('searchInput').value.toLowerCase();
-    const filtered = localProjects.filter(project => 
+    const filtered = localProjects.filter(project =>
         project.name.toLowerCase().includes(searchValue)
     );
     displayProjects(filtered);

@@ -56,6 +56,9 @@ app.post('/api/projects', (req, res) => {
         const newProject = db.createProject(name.trim());
         res.status(201).json(newProject);
     } catch (err) {
+        if (err.message === 'PROJECT_NAME_EXISTS') {
+            return res.status(409).json({ error: 'A project with this name already exists' });
+        }
         res.status(500).json({ error: 'Failed to create project' });
     }
 });
@@ -65,7 +68,7 @@ app.put('/api/projects/:id', (req, res) => {
     try {
         const { id } = req.params;
         const { name, blocksCount, workspaceState, pythonCode } = req.body;
-        
+
         const updated = db.updateProject(id, {
             name,
             blocksCount,
