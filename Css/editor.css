@@ -1,5 +1,5 @@
 /* =============================================
-   EDITOR.CSS - تصميم محرر الكتل
+   EDITOR.CSS - Block editor styles
    ============================================= */
 
 /* ===== VARIABLES ===== */
@@ -14,7 +14,7 @@
     --border:       #e5e7eb;
     --shadow:       0 2px 10px rgba(0,0,0,0.05);
     
-    /* ألوان الكتل */
+    /* Block category colors */
     --logic-color:  #5c7cfa;
     --loops-color:  #20c997;
     --math-color:   #ff6b6b;
@@ -45,11 +45,11 @@ body {
     font-family: 'Inter', sans-serif;
     background: var(--bg-dark);
     color: var(--text-dark);
-    overflow: hidden; /* منع scroll الصفحة الأساسية */
+    overflow: hidden;
 }
 
 /* =============================================
-   EDITOR HEADER - الشريط العلوي
+   EDITOR HEADER
    ============================================= */
 .editor-header {
     background: var(--bg);
@@ -62,14 +62,12 @@ body {
     height: 56px;
 }
 
-/* الجزء الأيسر: زر الرجوع + اسم المشروع */
 .header-left {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-/* زر الرجوع */
 .back-btn {
     width: 36px;
     height: 36px;
@@ -90,7 +88,6 @@ body {
     border-color: var(--primary);
 }
 
-/* معلومات المشروع */
 .project-info {
     display: flex;
     flex-direction: column;
@@ -109,13 +106,11 @@ body {
     font-weight: 600;
 }
 
-/* الجزء الأيمن: أزرار الإجراءات */
 .header-right {
     display: flex;
     gap: 8px;
 }
 
-/* أزرار الهيدر */
 .header-btn {
     display: flex;
     align-items: center;
@@ -130,7 +125,6 @@ body {
     transition: all 0.2s ease;
 }
 
-/* زر Copy Code */
 .copy-btn {
     background: var(--bg-dark);
     color: var(--text-mid);
@@ -144,7 +138,6 @@ body {
     border-color: var(--primary);
 }
 
-/* زر Force Save */
 .save-btn {
     background: #8b5cf6;
     color: white;
@@ -155,7 +148,6 @@ body {
     transform: translateY(-1px);
 }
 
-/* زر Run */
 .run-btn {
     background: var(--primary);
     color: white;
@@ -168,25 +160,23 @@ body {
 }
 
 /* =============================================
-   EDITOR LAYOUT - تخطيط المحرر الجديد (علوي/سفلي)
+   EDITOR LAYOUT
    ============================================= */
 .editor-layout {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 56px); /* الارتفاع الكامل ناقص الهيدر */
+    height: calc(100vh - 56px);
     overflow: hidden;
 }
 
-/* قسم مساحة عمل Blockly (العلوي) */
 .workspace-section {
-    flex: 1; /* يأخذ كل المساحة المتاحة رأسياً */
+    flex: 1;
     display: flex;
     flex-direction: column;
     position: relative;
     border-bottom: 1px solid var(--border);
 }
 
-/* شريط تبويبات مساحة العمل */
 .canvas-tabs {
     background: #6366f1;
     padding: 10px 20px;
@@ -214,9 +204,8 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-/* اللوحة السفلية (عرض الكود والكونسول جنباً إلى جنب) */
 .bottom-panel {
-    height: 320px; /* الارتفاع الافتراضي للوحة السفلية */
+    height: 320px;
     background: var(--bg);
     border-top: 1px solid var(--border);
     display: flex;
@@ -226,12 +215,10 @@ body {
     overflow: hidden;
 }
 
-/* حالة التصغير للوحة السفلية */
 .bottom-panel.minimized {
     height: 38px !important;
 }
 
-/* شريط التحكم باللوحة السفلية */
 .bottom-panel-bar {
     height: 38px;
     padding: 0 16px;
@@ -284,7 +271,6 @@ body {
     color: white;
 }
 
-/* محتوى اللوحة السفلية عند التوسيع */
 .bottom-panel-content {
     flex: 1;
     display: grid;
@@ -293,7 +279,6 @@ body {
     overflow: hidden;
 }
 
-/* نصف اللوحة */
 .panel-half {
     display: flex;
     flex-direction: column;
@@ -305,7 +290,6 @@ body {
     border-right: 1px solid var(--border);
 }
 
-/* رأس اللوحة */
 .panel-header {
     padding: 8px 16px;
     font-size: 12px;
@@ -319,7 +303,6 @@ body {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
-/* رأس لوحة الكود (لون أصفر فاتح) */
 .code-panel-header {
     background-color: #fef9c3;
     color: #854d0e;
@@ -330,7 +313,6 @@ body.dark .code-panel-header {
     color: #fef08a;
 }
 
-/* رأس لوحة الكونسول (لون أخضر فاتح) */
 .console-panel-header {
     background-color: #dcfce7;
     color: #166534;
@@ -342,7 +324,6 @@ body.dark .console-panel-header {
     color: #86efac;
 }
 
-/* جسم اللوحة */
 .panel-body {
     flex: 1;
     overflow: auto;
@@ -350,15 +331,34 @@ body.dark .console-panel-header {
     position: relative;
 }
 
-/* كونسول مخصص بخلفية سوداء */
 .console-body {
     background: #0f172a;
     display: flex;
     flex-direction: column;
-    padding-bottom: 52px; /* مساحة لزر تشغيل السكريبت المطلق */
+    padding-bottom: 52px;
 }
 
-/* عرض كود بايثون */
+.console-input {
+    width: 100%;
+    min-height: 40px;
+    max-height: 80px;
+    background: #1e293b;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12px;
+    resize: vertical;
+    outline: none;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
+.console-input:focus {
+    border-color: #6366f1;
+}
+
 .code-display {
     background: #1e293b;
     color: #e2e8f0;
@@ -373,7 +373,6 @@ body.dark .console-panel-header {
     margin: 0;
 }
 
-/* عرض مخرجات الكونسول */
 .console-display {
     background: transparent;
     color: #10b981;
@@ -387,7 +386,6 @@ body.dark .console-panel-header {
     margin: 0;
 }
 
-/* زر مسح الكونسول */
 .console-clear-btn {
     position: absolute;
     right: 16px;
@@ -407,7 +405,6 @@ body.dark .console-panel-header {
     opacity: 1;
 }
 
-/* زر تشغيل السكريبت (RUN_SCRIPT) أسفل اليمين في الكونسول */
 .run-script-btn {
     position: absolute;
     right: 16px;
@@ -441,7 +438,7 @@ body.dark .console-panel-header {
     .bottom-panel {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
-        height: 380px; /* جعل اللوحة السفلية أطول قليلاً على الموبايل لتتسع للقسمين فوق بعضهما */
+        height: 380px;
     }
 
     .code-panel {
@@ -468,15 +465,14 @@ body.dark .console-panel-header {
     }
 
     .editor-layout {
-        height: calc(100vh - 100px); /* تعويض زيادة حجم الهيدر */
+        height: calc(100vh - 100px);
     }
 }
 
 /* =============================================
-   BLOCKLY STYLING OVERRIDES - تصميم مخصص للبلوكات
+   BLOCKLY STYLING OVERRIDES
    ============================================= */
 
-/* تخصيص مظهر شريط فئات البلوكات (Toolbox) */
 .blocklyToolboxDiv {
     background-color: var(--bg) !important;
     border-right: 1px solid var(--border) !important;
@@ -484,7 +480,6 @@ body.dark .console-panel-header {
     font-family: 'Inter', sans-serif !important;
 }
 
-/* تخصيص صفوف الفئات */
 .blocklyTreeRow {
     padding: 8px 12px !important;
     margin: 4px 8px !important;
@@ -495,12 +490,10 @@ body.dark .console-panel-header {
     transition: all 0.2s ease !important;
 }
 
-/* عند تمرير الماوس فوق فئة */
 .blocklyTreeRow:hover {
     background-color: var(--bg-dark) !important;
 }
 
-/* عند اختيار فئة */
 .blocklyTreeSelected {
     background-color: var(--primary-light) !important;
     color: var(--primary) !important;
@@ -511,25 +504,21 @@ body.dark .blocklyTreeSelected {
     color: #818cf8 !important;
 }
 
-/* نصوص الفئات */
 .blocklyTreeLabel {
     font-family: 'Inter', sans-serif !important;
     cursor: pointer !important;
 }
 
-/* خلفية قائمة البلوكات الفرعية (Flyout) */
 .blocklyFlyoutBackground {
     fill: var(--bg-dark) !important;
     fill-opacity: 0.95 !important;
 }
 
-/* خلفية مساحة العمل الرئيسية */
 .blocklyMainBackground {
     stroke: none !important;
     fill: var(--bg-dark) !important;
 }
 
-/* شريط التمرير */
 .blocklyScrollbarHandle {
     fill: var(--primary) !important;
     fill-opacity: 0.3 !important;
@@ -539,4 +528,3 @@ body.dark .blocklyTreeSelected {
 .blocklyScrollbarHandle:hover {
     fill-opacity: 0.6 !important;
 }
-

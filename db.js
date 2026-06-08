@@ -1,28 +1,26 @@
 const fs = require('fs');
 const path = require('path');
 
-// مسار المجلد والملف الخاص ببيانات المشاريع
+// Path to the data folder and projects file
 const dataDir = path.join(__dirname, 'data');
 const dbPath = path.join(dataDir, 'projects.json');
 
 /**
- * تهيئة قاعدة البيانات البسيطة (ملف JSON)
+ * Initialize the simple JSON database
  */
 function initDB() {
-    // إنشاء مجلد data إذا لم يكن موجوداً
     if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir);
     }
 
-    // إنشاء ملف projects.json بمصفوفة فارغة إذا لم يكن موجوداً
     if (!fs.existsSync(dbPath)) {
         fs.writeFileSync(dbPath, JSON.stringify([], null, 2), 'utf-8');
     }
 }
 
 /**
- * جلب جميع المشاريع من قاعدة البيانات
- * @returns {Array} مصفوفة المشاريع
+ * Get all projects from the database
+ * @returns {Array} Array of project objects
  */
 function getProjects() {
     initDB();
@@ -36,8 +34,8 @@ function getProjects() {
 }
 
 /**
- * حفظ قائمة المشاريع في ملف JSON
- * @param {Array} projects مصفوفة المشاريع المراد حفظها
+ * Save the project list to the JSON file
+ * @param {Array} projects Array of projects to save
  */
 function saveProjects(projects) {
     initDB();
@@ -49,9 +47,9 @@ function saveProjects(projects) {
 }
 
 /**
- * جلب مشروع محدد بواسطة معرّفه الفريد
- * @param {number|string} id معرف المشروع
- * @returns {Object|null} كائن المشروع أو null إذا لم يُعثر عليه
+ * Get a specific project by its unique ID
+ * @param {number|string} id Project ID
+ * @returns {Object|null} Project object or null if not found
  */
 function getProject(id) {
     const projects = getProjects();
@@ -59,25 +57,25 @@ function getProject(id) {
 }
 
 /**
- * إنشاء مشروع جديد وحفظه
- * @param {string} name اسم المشروع
- * @returns {Object} كائن المشروع المنشأ حديثاً
- * @throws {Error} إذا كان اسم المشروع موجود مسبقاً
+ * Create a new project and save it
+ * @param {string} name Project name
+ * @returns {Object} The newly created project object
+ * @throws {Error} If a project with the same name already exists
  */
 function createProject(name) {
     const projects = getProjects();
 
-    // التحقق من عدم وجود مشروع بنفس الاسم
+    // Check for duplicate project names
     const existingProject = projects.find(p => p.name.toLowerCase() === name.toLowerCase());
     if (existingProject) {
         throw new Error('PROJECT_NAME_EXISTS');
     }
 
     const newProject = {
-        id: Date.now(), // استخدام الوقت الحالي كمعرّف فريد ومميز
+        id: Date.now(),
         name: name,
         blocksCount: 0,
-        workspaceState: null, // سيخزن حالة البلوكات لـ Blockly
+        workspaceState: null,
         pythonCode: '# Write your code here\n',
         createdAt: new Date().toISOString()
     };
@@ -87,21 +85,19 @@ function createProject(name) {
 }
 
 /**
- * تحديث بيانات مشروع موجود
- * @param {number|string} id معرف المشروع
- * @param {Object} updateData البيانات المراد تحديثها
- * @returns {Object|null} المشروع المحدث أو null إذا لم يوجد
+ * Update an existing project's data
+ * @param {number|string} id Project ID
+ * @param {Object} updateData The data to update
+ * @returns {Object|null} The updated project or null if not found
  */
 function updateProject(id, updateData) {
     const projects = getProjects();
     const index = projects.findIndex(p => p.id == id);
     if (index === -1) return null;
 
-    // دمج البيانات الجديدة مع البيانات القديمة للمشروع
     projects[index] = {
         ...projects[index],
         ...updateData,
-        // تأكيد عدم تغيير المعرف
         id: projects[index].id
     };
 
@@ -110,14 +106,14 @@ function updateProject(id, updateData) {
 }
 
 /**
- * حذف مشروع من قاعدة البيانات
- * @param {number|string} id معرف المشروع المراد حذفه
- * @returns {boolean} true إذا تم الحذف بنجاح، وإلا false
+ * Delete a project from the database
+ * @param {number|string} id Project ID to delete
+ * @returns {boolean} true if deleted successfully, false otherwise
  */
 function deleteProject(id) {
     const projects = getProjects();
     const filtered = projects.filter(p => p.id != id);
-    if (filtered.length === projects.length) return false; // لم يُعثر على المشروع لحذفه
+    if (filtered.length === projects.length) return false;
 
     saveProjects(filtered);
     return true;

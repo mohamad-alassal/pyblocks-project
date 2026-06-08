@@ -1,29 +1,29 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 const db = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// تفعيل استقبال بيانات JSON من الطلبات
+// Enable JSON body parsing
 app.use(express.json());
 
-// تقديم الملفات الثابتة (HTML, CSS, JS) من المجلد الرئيسي للمشروع
+// Serve static files (HTML, CSS, JS) from the project root
 app.use(express.static(__dirname));
 
-// مجلد مؤقت لحفظ ملفات Python وتطبيقها
+// Temp directory for executing Python scripts
 const tempDir = path.join(__dirname, 'temp');
 if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir);
 }
 
 /* =============================================
-   API ROUTES - مسارات واجهة برمجة التطبيقات
+   API ROUTES
    ============================================= */
 
-// 1. جلب كل المشاريع
+// 1. Get all projects
 app.get('/api/projects', (req, res) => {
     try {
         const projects = db.getProjects();
@@ -33,7 +33,7 @@ app.get('/api/projects', (req, res) => {
     }
 });
 
-// 2. جلب تفاصيل مشروع معين
+// 2. Get a specific project
 app.get('/api/projects/:id', (req, res) => {
     try {
         const project = db.getProject(req.params.id);
@@ -46,7 +46,7 @@ app.get('/api/projects/:id', (req, res) => {
     }
 });
 
-// 3. إنشاء مشروع جديد
+// 3. Create a new project
 app.post('/api/projects', (req, res) => {
     try {
         const { name } = req.body;
@@ -63,7 +63,7 @@ app.post('/api/projects', (req, res) => {
     }
 });
 
-// 4. تحديث وحفظ بيانات مشروع
+// 4. Update project data
 app.put('/api/projects/:id', (req, res) => {
     try {
         const { id } = req.params;
@@ -86,7 +86,7 @@ app.put('/api/projects/:id', (req, res) => {
     }
 });
 
-// 5. حذف مشروع
+// 5. Delete a project
 app.delete('/api/projects/:id', (req, res) => {
     try {
         const { id } = req.params;
@@ -100,52 +100,67 @@ app.delete('/api/projects/:id', (req, res) => {
     }
 });
 
-// 6. تشغيل كود بايثون وحساب النتيجة
+// 6. Run Python code and return the result
 app.post('/api/run', (req, res) => {
-    const { code } = req.body;
+    const { code, stdin } = req.body;
     if (code === undefined) {
         return res.status(400).json({ error: 'No code provided' });
     }
 
-    // اسم ملف عشوائي لتجنب تداخل طلبات المستخدمين
+    // Random filename to avoid user request collisions
     const fileName = `run_${Date.now()}_${Math.floor(Math.random() * 1000)}.py`;
     const filePath = path.join(tempDir, fileName);
 
-    // كتابة الكود البرمجي للملف
+    // Write code to temp file
     fs.writeFile(filePath, code, 'utf-8', (err) => {
         if (err) {
             console.error('Error writing temp file:', err);
             return res.status(500).json({ error: 'Failed to prepare python code for execution' });
         }
 
-        // تشغيل كود بايثون باستخدام موجه الأوامر 'py' على نظام ويندوز
-        // وتحديد مهلة قصوى للتنفيذ (5 ثوانٍ) لمنع التجميد في حال التكرار اللانهائي (Infinite Loops)
-        const command = `py "${filePath}"`;
-        exec(command, { timeout: 5000 }, (execErr, stdout, stderr) => {
-            // حذف الملف المؤقت بعد الانتهاء فوراً
+        // Run Python using spawn with stdin support and 5-second timeout
+        const py = spawn('py', [filePath], { timeout: 5000 });
+        let stdout = '';
+        let stderr = '';
+        let timedOut = false;
+
+        // Pipe stdin input if provided
+        if (stdin) {
+            py.stdin.write(stdin);
+        }
+        py.stdin.end();
+
+        py.stdout.on('data', (data) => {
+            stdout += data.toString();
+        });
+
+        py.stderr.on('data', (data) => {
+            stderr += data.toString();
+        });
+
+        py.on('error', (err) => {
+            stderr += err.message;
+        });
+
+        py.on('close', (exitCode) => {
+            timedOut = exitCode === null;
+
+            // Delete temp file
             fs.unlink(filePath, (unlinkErr) => {
                 if (unlinkErr) console.error('Failed to delete temp file:', unlinkErr);
             });
 
-            // معالجة الأخطاء والنتيجة
-            let timedOut = false;
-            if (execErr) {
-                if (execErr.killed) {
-                    timedOut = true;
-                }
-            }
-
             res.json({
                 stdout: stdout || '',
-                stderr: stderr || (execErr && !timedOut ? execErr.message : ''),
+                stderr: stderr || '',
                 timedOut,
-                exitCode: execErr ? execErr.code : 0
+                exitCode: exitCode === null ? 1 : exitCode
             });
         });
     });
 });
 
-// بدء الاستماع على المنفذ المحدد
+// Start listening on the specified port
 app.listen(PORT, () => {
     console.log(`====================================================`);
     console.log(`  PythonBlocks backend running on: http://localhost:${PORT}`);

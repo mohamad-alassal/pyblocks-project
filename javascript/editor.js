@@ -1,13 +1,11 @@
 /* =============================================
-   EDITOR.JS - منطق محرر الكتل (Blockly) والربط مع الخادم
+   EDITOR.JS - Blockly editor logic and server communication
    ============================================= */
 
-// متغيرات عامة لمساحة عمل Blockly والبيانات الخاصة بالمشروع الحالي
 let workspace = null;
 let projectId = null;
 let projectData = null;
 
-// تعريف كائنات الثيمات المخصصة لـ Blockly لدعم الوضعين الداكن والفاتح
 let lightTheme = null;
 let darkTheme = null;
 
@@ -41,13 +39,12 @@ try {
     console.error('Failed to define custom Blockly themes:', e);
 }
 
-// تعريف البنية البرمجية لصندوق الأدوات (Toolbox) الخاص بـ Blockly مع مجموعة غنية وموسعة من البلوكات
 const TOOLBOX_DEFINITION = {
     "kind": "categoryToolbox",
     "contents": [
         {
             "kind": "category",
-            "name": "Logic (المنطق)",
+            "name": "Logic",
             "categorystyle": "logic_category",
             "contents": [
                 { "kind": "block", "type": "controls_if" },
@@ -61,7 +58,7 @@ const TOOLBOX_DEFINITION = {
         },
         {
             "kind": "category",
-            "name": "Loops (التكرار)",
+            "name": "Loops",
             "categorystyle": "loop_category",
             "contents": [
                 { "kind": "block", "type": "controls_repeat_ext" },
@@ -73,7 +70,7 @@ const TOOLBOX_DEFINITION = {
         },
         {
             "kind": "category",
-            "name": "Math (الرياضيات)",
+            "name": "Math",
             "categorystyle": "math_category",
             "contents": [
                 { "kind": "block", "type": "math_number" },
@@ -92,7 +89,7 @@ const TOOLBOX_DEFINITION = {
         },
         {
             "kind": "category",
-            "name": "Text (النصوص)",
+            "name": "Text",
             "categorystyle": "text_category",
             "contents": [
                 { "kind": "block", "type": "text" },
@@ -111,7 +108,7 @@ const TOOLBOX_DEFINITION = {
         },
         {
             "kind": "category",
-            "name": "Lists (القوائم)",
+            "name": "Lists",
             "categorystyle": "list_category",
             "contents": [
                 { "kind": "block", "type": "lists_create_empty" },
@@ -128,29 +125,29 @@ const TOOLBOX_DEFINITION = {
             ]
         },
         {
-            "kind": "sep" // خط فاصل في القائمة
+            "kind": "sep"
         },
         {
             "kind": "category",
-            "name": "Python Libraries (مكتبات بايثون)",
+            "name": "Python Libraries",
             "colour": "210",
             "contents": [
                 {
                     "kind": "label",
-                    "text": "Random (عشوائي)"
+                    "text": "Random"
                 },
                 { "kind": "block", "type": "python_random_randint" },
                 { "kind": "block", "type": "python_random_choice" },
                 { "kind": "block", "type": "python_random_random" },
                 {
                     "kind": "label",
-                    "text": "Time (الوقت)"
+                    "text": "Time"
                 },
                 { "kind": "block", "type": "python_time_sleep" },
                 { "kind": "block", "type": "python_time_time" },
                 {
                     "kind": "label",
-                    "text": "Math Advanced (رياضيات متقدمة)"
+                    "text": "Math Advanced"
                 },
                 { "kind": "block", "type": "python_math_sqrt" },
                 { "kind": "block", "type": "python_math_pow" },
@@ -159,7 +156,7 @@ const TOOLBOX_DEFINITION = {
                 { "kind": "block", "type": "python_math_pi" },
                 {
                     "kind": "label",
-                    "text": "Datetime (التاريخ)"
+                    "text": "Datetime"
                 },
                 { "kind": "block", "type": "python_datetime_now" },
                 { "kind": "block", "type": "python_datetime_year" },
@@ -169,7 +166,7 @@ const TOOLBOX_DEFINITION = {
         },
         {
             "kind": "category",
-            "name": "Python Built-in (دوال مدمجة)",
+            "name": "Python Built-in",
             "colour": "160",
             "contents": [
                 { "kind": "block", "type": "python_input" },
@@ -185,14 +182,14 @@ const TOOLBOX_DEFINITION = {
         },
         {
             "kind": "category",
-            "name": "Variables (المتغيرات)",
-            "custom": "VARIABLE", // تصنيف ديناميكي لإنشاء وإدارة المتغيرات
+            "name": "Variables",
+            "custom": "VARIABLE",
             "categorystyle": "variable_category"
         },
         {
             "kind": "category",
-            "name": "Functions (الدوال)",
-            "custom": "PROCEDURE", // تصنيف ديناميكي لإنشاء وإدارة الدوال البرمجية
+            "name": "Functions",
+            "custom": "PROCEDURE",
             "categorystyle": "procedure_category"
         }
     ]
@@ -200,50 +197,44 @@ const TOOLBOX_DEFINITION = {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // التحقق المسبق من الوضع الداكن وتطبيقه على الجسم فوراً لتجنب الوميض الأبيض
     const savedMode = localStorage.getItem('darkMode');
     if (savedMode === 'enabled') {
         document.body.classList.add('dark');
     }
 
-    // ===== 1. استخراج معرف المشروع من رابط الصفحة =====
+    // ===== 1. Extract project ID from URL =====
     const urlParams = new URLSearchParams(window.location.search);
     projectId = urlParams.get('project');
 
     if (!projectId) {
-        alert('لم يتم تحديد مشروع لفتحه.');
+        alert('No project specified to open.');
         window.location.href = 'Projects.html';
         return;
     }
 
-    // ===== 2. تهيئة مساحة عمل Blockly =====
+    // ===== 2. Initialize Blockly workspace =====
     initBlockly();
 
-    // ===== 3. جلب بيانات المشروع من الخادم وبدء التحميل =====
+    // ===== 3. Fetch project data from server =====
     loadProjectData();
 
-    // ===== 4. تفعيل أزرار الواجهة =====
+    // ===== 4. Setup UI event listeners =====
     setupEventListeners();
 
-    // ===== 5. تهيئة تبديل الوضع الداكن =====
+    // ===== 5. Initialize dark mode toggle =====
     initDarkMode();
 
-    // ===== 6. تهيئة اللوحة السفلية القابلة للطي =====
+    // ===== 6. Initialize collapsible bottom panel =====
     initBottomPanel();
 });
 
-/**
- * تهيئة مكتبة Google Blockly وربطها مع الحاوية الرسومية
- */
 function initBlockly() {
     const blocklyDiv = document.getElementById('blocklyDiv');
     if (!blocklyDiv) return;
 
-    // تحديد الثيم الأولي بناء على وضع الصفحة
     const isDark = document.body.classList.contains('dark');
     const initialTheme = isDark ? darkTheme : lightTheme;
 
-    // حقن Blockly في الحاوية مع تمرير خصائص التنسيق والتحكم والثيم المخصص
     workspace = Blockly.inject(blocklyDiv, {
         theme: initialTheme,
         toolbox: TOOLBOX_DEFINITION,
@@ -265,51 +256,38 @@ function initBlockly() {
         }
     });
 
-    // إضافة مستمع لحالة التغيير في مساحة العمل لتحديث كود Python تلقائياً وحفظه تلقائياً
     workspace.addChangeListener(function (event) {
-        // عدم تحديث الكود إذا كان الحدث عبارة عن حركة كاميرا أو تحديد كتلة فقط
         if (event.type === Blockly.Events.VIEWPORT_CHANGE || event.type === Blockly.Events.SELECTED) {
             return;
         }
 
-        // تحديث عرض الكود الرسومي
         updatePythonCodePreview();
-
-        // التوفير التلقائي: حفظ المشروع في الخلفية بعد كل تعديل
         autoSaveProject();
     });
 
-    // إضافة مستمع لإعادة ضبط حجم Blockly عند تغيير حجم النافذة (خاصة في شاشات الموبايل)
     window.addEventListener('resize', function () {
         Blockly.svgResize(workspace);
     });
 }
 
-/**
- * تحديث الكود المعروض في التبويب الجانبي بالبايثون الحقيقي
- */
 function updatePythonCodePreview() {
     const codeDisplay = document.getElementById('codeDisplay');
     if (!codeDisplay || !workspace) return;
 
     try {
-        // استخدام محرك Blockly لتوليد كود بايثون نظيف
         const code = Blockly.Python.workspaceToCode(workspace);
 
         if (code.trim() === '') {
-            codeDisplay.textContent = `# اسحب البلوكات إلى مساحة العمل للبدء بالبرمجة!\n# Drag blocks here to get started...\n\nprint("Hello, PythonBlocks!")`;
+            codeDisplay.textContent = `# Drag blocks to the workspace to start coding!\n\nprint("Hello, PythonBlocks!")`;
         } else {
             codeDisplay.textContent = code;
         }
     } catch (err) {
         console.error('Error generating Python code:', err);
-        codeDisplay.textContent = '# حدث خطأ أثناء توليد الكود:\n' + err.message;
+        codeDisplay.textContent = '# Error generating code:\n' + err.message;
     }
 }
 
-/**
- * جلب بيانات المشروع من الخادم عبر API
- */
 function loadProjectData() {
     const projectStatus = document.querySelector('.project-status');
     if (projectStatus) projectStatus.textContent = '● Loading...';
@@ -322,55 +300,43 @@ function loadProjectData() {
         .then(project => {
             projectData = project;
 
-            // عرض اسم المشروع
             document.getElementById('projectName').textContent = project.name;
 
-            // تحميل كتل Blockly المخزنة مسبقاً (إن وُجدت)
             if (project.workspaceState && workspace) {
-                // استعادة حالة الكتل من بيانات الـ JSON المخزنة
                 Blockly.serialization.workspaces.load(project.workspaceState, workspace);
             }
 
-            // تحديث الكود لأول مرة بعد التحميل
             updatePythonCodePreview();
 
             if (projectStatus) projectStatus.textContent = '● Ready';
         })
         .catch(error => {
             console.error('Error loading project:', error);
-            alert('فشل في تحميل بيانات المشروع من الخادم.');
+            alert('Failed to load project data from the server.');
             window.location.href = 'Projects.html';
         });
 }
 
-// مؤقت لحفظ التغيرات تلقائياً بدون الضغط المتكرر على الخادم (Debounce Save)
 let autoSaveTimer = null;
 
 function autoSaveProject() {
     if (autoSaveTimer) clearTimeout(autoSaveTimer);
 
-    // الانتظار لمدة 1.5 ثانية بعد آخر تعديل قبل الحفظ التلقائي
     autoSaveTimer = setTimeout(function () {
-        saveProjectToServer(false); // حفظ تلقائي صامت بدون رسائل تنبيهية
+        saveProjectToServer(false);
     }, 1500);
 }
 
-/**
- * حفظ حالة المشروع الحالية في الـ Backend
- * @param {boolean} showFeedback هل يتم عرض تنبيه بصري للمستخدم عند الحفظ؟ (مفيد للحفظ اليدوي)
- */
 function saveProjectToServer(showFeedback = false) {
     if (!workspace || !projectId || !projectData) return;
 
     const projectStatus = document.querySelector('.project-status');
     if (projectStatus) projectStatus.textContent = '● Saving...';
 
-    // حفظ حالة مساحة العمل ككائن JSON
     const workspaceState = Blockly.serialization.workspaces.save(workspace);
     const pythonCode = Blockly.Python.workspaceToCode(workspace);
     const blocksCount = workspace.getAllBlocks(false).length;
 
-    // إرسال طلب PUT لتحديث بيانات المشروع في الـ backend
     fetch(`/api/projects/${projectId}`, {
         method: 'PUT',
         headers: {
@@ -407,16 +373,12 @@ function saveProjectToServer(showFeedback = false) {
         .catch(error => {
             console.error('Error saving project:', error);
             if (projectStatus) projectStatus.textContent = '● Error saving';
-            if (showFeedback) alert('فشل الحفظ التلقائي. يرجى التحقق من اتصالك بالخادم.');
+            if (showFeedback) alert('Failed to save. Please check your server connection.');
         });
 }
 
-/**
- * تهيئة أزرار الهيدر والتبديل
- */
 function setupEventListeners() {
 
-    // زر الحفظ اليدوي (FORCE SAVE)
     const forceSaveBtn = document.getElementById('forceSaveBtn');
     if (forceSaveBtn) {
         forceSaveBtn.addEventListener('click', function () {
@@ -424,7 +386,6 @@ function setupEventListeners() {
         });
     }
 
-    // زر نسخ الكود البرمجي
     const copyCodeBtn = document.getElementById('copyCodeBtn');
     if (copyCodeBtn) {
         copyCodeBtn.addEventListener('click', function () {
@@ -441,12 +402,11 @@ function setupEventListeners() {
                     copyCodeBtn.style.color = '';
                 }, 2000);
             }).catch(err => {
-                alert('فشل في نسخ الكود: ' + err);
+                alert('Failed to copy code: ' + err);
             });
         });
     }
 
-    // زر تشغيل الكود (RUN IT NOW)
     const runBtn = document.getElementById('runBtn');
     if (runBtn) {
         runBtn.addEventListener('click', function () {
@@ -455,78 +415,69 @@ function setupEventListeners() {
     }
 }
 
-/**
- * إرسال كود بايثون إلى الـ backend لتشغيله وعرض مخرجات الكونسول
- */
 function runPythonCode() {
     if (!workspace) return;
 
     const code = Blockly.Python.workspaceToCode(workspace);
     const consoleDisplay = document.getElementById('consoleDisplay');
+    const stdinInput = document.getElementById('stdinInput');
+    const stdin = stdinInput ? stdinInput.value : '';
 
     consoleDisplay.textContent = '>>> Running code on server...\n';
 
-    // حفظ التغييرات أولاً قبل التشغيل
     saveProjectToServer(false);
 
-    // إرسال الكود للـ Backend لتشغيله بشكل حقيقي
     fetch('/api/run', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ code: code })
+        body: JSON.stringify({ code: code, stdin: stdin })
     })
         .then(response => {
             if (!response.ok) throw new Error('Server error running code');
             return response.json();
         })
         .then(result => {
-            consoleDisplay.textContent = ''; // تفريغ
+            consoleDisplay.textContent = '';
 
-            // طباعة المخرجات القياسية stdout إن وجدت
             if (result.stdout) {
                 consoleDisplay.textContent += result.stdout;
             }
 
-            // طباعة الأخطاء stderr باللون الأحمر أو بشكل مميز إن وجدت
             if (result.stderr) {
                 consoleDisplay.textContent += `\n[ERROR]:\n${result.stderr}`;
             }
 
-            // التنبيه في حالة انتهاء المهلة (Loop لانهائي)
             if (result.timedOut) {
-                consoleDisplay.textContent += `\n\n[TIMEOUT]: تم إيقاف البرنامج قسراً لتجاوزه حد 5 ثوانٍ (قد يحتوي كودك على تكرار لانهائي)`;
+                consoleDisplay.textContent += `\n\n[TIMEOUT]: The program was forcefully stopped (exceeded 5-second limit - your code may contain an infinite loop)`;
             }
 
-            // طباعة سطر النهاية
             consoleDisplay.textContent += `\n\n>>> Execution completed (Exit code: ${result.exitCode})`;
         })
         .catch(error => {
             console.error('Error running Python code:', error);
-            consoleDisplay.textContent += `\n[CRITICAL ERROR]: فشل في الاتصال بالخادم لتشغيل الكود.`;
+            consoleDisplay.textContent += `\n[CRITICAL ERROR]: Failed to connect to the server to run the code.`;
         });
 }
 
-
-
-/**
- * مسح الكونسول وإعادته للوضع الافتراضي
- */
 function clearConsole() {
     const consoleDisplay = document.getElementById('consoleDisplay');
     if (consoleDisplay) {
         consoleDisplay.textContent = 'Ready to run...';
     }
+    const stdinInput = document.getElementById('stdinInput');
+    if (stdinInput) {
+        stdinInput.value = '';
+    }
 }
 
-// ===== DARK MODE TOGGLE - إدارة وتبديل الوضع الليلي =====
+// ===== DARK MODE TOGGLE =====
 
 function initDarkMode() {
     const darkToggle = document.getElementById('darkToggle');
     const savedMode = localStorage.getItem('darkMode');
 
-    // التحقق المسبق وتأكيد حالة الأيقونة والثيم
     if (savedMode === 'enabled') {
         if (darkToggle) darkToggle.textContent = '☀️';
         setBlocklyTheme(true);
@@ -545,16 +496,11 @@ function initDarkMode() {
                 darkToggle.textContent = '🌙';
             }
 
-            // تحديث ثيم Blockly بناء على الاختيار
             setBlocklyTheme(isDark);
         });
     }
 }
 
-/**
- * تبديل الثيم الداكن لـ Blockly
- * @param {boolean} isDark هل الوضع الداكن مفعّل؟
- */
 function setBlocklyTheme(isDark) {
     if (!workspace) return;
 
@@ -569,9 +515,6 @@ function setBlocklyTheme(isDark) {
     }
 }
 
-/**
- * تهيئة اللوحة السفلية وجعلها قابلة للطي (التصغير والتوسيع) لزيادة مساحة العمل الرسومية
- */
 function initBottomPanel() {
     const bottomPanel = document.getElementById('bottomPanel');
     const bottomPanelBar = document.getElementById('bottomPanelBar');
@@ -579,13 +522,11 @@ function initBottomPanel() {
 
     if (!bottomPanel || !bottomPanelBar || !togglePanelBtn) return;
 
-    // عند الضغط على شريط اللوحة السفلية
     bottomPanelBar.addEventListener('click', function (e) {
         if (e.target === togglePanelBtn) return;
         toggleCollapse();
     });
 
-    // عند الضغط على زر التبديل
     togglePanelBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         toggleCollapse();
@@ -596,17 +537,15 @@ function initBottomPanel() {
         const isMinimized = bottomPanel.classList.contains('minimized');
 
         if (isMinimized) {
-            togglePanelBtn.textContent = '▲ Expand (توسيع)';
+            togglePanelBtn.textContent = '▲ Expand';
         } else {
-            togglePanelBtn.textContent = '▼ Minimize (تصغير)';
+            togglePanelBtn.textContent = '▼ Minimize';
         }
 
-        // تحديث حجم مساحة عمل Blockly بشكل فوري ليتلاءم مع حجم الشاشة الجديد
         if (workspace) {
             Blockly.svgResize(workspace);
         }
 
-        // إعادة تحديث الحجم بعد انتهاء حركة الأنيماشين
         setTimeout(function () {
             if (workspace) {
                 Blockly.svgResize(workspace);

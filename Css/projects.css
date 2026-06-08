@@ -1,22 +1,22 @@
 /* =============================================
-   VARIABLES - المتغيرات العامة للألوان والخطوط
+   VARIABLES - Global color and font variables
    ============================================= */
 :root {
-    --primary:       #4f46e5;   /* اللون الأزرق الأساسي */
-    --primary-dark:  #3730a3;   /* أزرق أغمق للـ hover */
-    --primary-light: #e9ecff;   /* أزرق فاتح جداً للخلفيات */
-    --text-dark:     #0f172a;   /* لون النص الداكن */
-    --text-mid:      #374151;   /* نص متوسط */
-    --text-light:    #64748b;   /* نص فاتح للأوصاف */
-    --bg:            #ffffff;   /* خلفية الصفحة */
-    --bg-section:    #f8f7ff;   /* خلفية فاتحة للأقسام */
-    --border:        #e5e7eb;   /* لون الحدود */
-    --radius:        12px;      /* انحناء الزوايا الموحد */
-    --shadow:        0 4px 20px rgba(0,0,0,0.07); /* ظل خفيف */
+    --primary:       #4f46e5;
+    --primary-dark:  #3730a3;
+    --primary-light: #e9ecff;
+    --text-dark:     #0f172a;
+    --text-mid:      #374151;
+    --text-light:    #64748b;
+    --bg:            #ffffff;
+    --bg-section:    #f8f7ff;
+    --border:        #e5e7eb;
+    --radius:        12px;
+    --shadow:        0 4px 20px rgba(0,0,0,0.07);
 }
 
 /* =============================================
-   DARK MODE - الوضع الليلي
+   DARK MODE
    ============================================= */
 body.dark {
     --bg:          #0f172a;
@@ -29,7 +29,7 @@ body.dark {
 }
 
 /* =============================================
-   RESET & BASE - إعدادات أساسية
+   RESET & BASE
    ============================================= */
 * {
     margin: 0;
@@ -45,7 +45,7 @@ body {
 }
 
 /* =============================================
-   NAVBAR - شريط التنقل العلوي
+   NAVBAR
    ============================================= */
 .navbar {
     position: fixed;
@@ -113,7 +113,6 @@ body {
     gap: 12px;
 }
 
-/* زر تبديل الوضع الليلي */
 .dark-toggle {
     background: none;
     border: 1px solid var(--border);
@@ -130,7 +129,7 @@ body {
 }
 
 /* =============================================
-   PROJECTS PAGE - صفحة المشاريع
+   PROJECTS PAGE
    ============================================= */
 body.projects-page {
     background-color: var(--bg);
@@ -336,7 +335,7 @@ body.projects-page {
 }
 
 /* =============================================
-   MODAL - النافذة المنبثقة
+   MODAL
    ============================================= */
 .modal-overlay {
     display: none;

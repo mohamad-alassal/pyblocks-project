@@ -1,13 +1,12 @@
 /* =============================================
-   PROJECTS.JS - منطق إدارة المشاريع والربط مع الـ Backend
+   PROJECTS.JS - Project management logic and backend communication
    ============================================= */
 
-// مصفوفة لتخزين المشاريع محلياً بعد جلبها من الخادم (لتسهيل البحث والفلترة السريعة)
 let localProjects = [];
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ===== DARK MODE - تفعيل وإدارة الوضع الداكن =====
+    // ===== DARK MODE =====
     const darkToggle = document.getElementById('darkToggle');
     const savedMode = localStorage.getItem('darkMode');
 
@@ -29,10 +28,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ===== GET PROJECTS - جلب المشاريع من الخادم =====
+    // ===== GET PROJECTS =====
     fetchProjects();
 
-    // إضافة مستمع لزر Enter في حقل إدخال اسم المشروع بالنافذة المنبثقة
     const projectNameInput = document.getElementById('projectNameInput');
     if (projectNameInput) {
         projectNameInput.addEventListener('keypress', function (e) {
@@ -43,9 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-/**
- * جلب المشاريع من الـ Backend وعرضها
- */
 function fetchProjects() {
     fetch('/api/projects')
         .then(response => {
@@ -53,19 +48,15 @@ function fetchProjects() {
             return response.json();
         })
         .then(projects => {
-            localProjects = projects; // حفظ المشاريع محلياً للفلترة
+            localProjects = projects;
             displayProjects(projects);
         })
         .catch(error => {
             console.error('Error fetching projects:', error);
-            alert('حدث خطأ أثناء تحميل المشاريع من الخادم. يرجى التأكد من تشغيل الـ Backend.');
+            alert('An error occurred while loading projects. Please make sure the backend is running.');
         });
 }
 
-/**
- * عرض بطاقات المشاريع في شبكة الـ HTML
- * @param {Array} projects مصفوفة المشاريع المراد عرضها
- */
 function displayProjects(projects) {
     const grid = document.getElementById('projectsGrid');
     const emptyState = document.getElementById('emptyState');
@@ -73,7 +64,6 @@ function displayProjects(projects) {
     if (!grid) return;
     grid.innerHTML = '';
 
-    // إذا لم تكن هناك مشاريع، اعرض رسالة التنبيه الفارغة
     if (projects.length === 0) {
         emptyState.style.display = 'block';
         return;
@@ -81,11 +71,9 @@ function displayProjects(projects) {
 
     emptyState.style.display = 'none';
 
-    // إنشاء بطاقة لكل مشروع
     projects.forEach(project => {
         const card = document.createElement('div');
         card.className = 'project-card';
-        // فتح المشروع عند الضغط على البطاقة ككل (مع استثناء زر الحذف)
         card.addEventListener('click', function (e) {
             if (!e.target.classList.contains('project-card-delete')) {
                 openProject(project.id);
@@ -93,12 +81,10 @@ function displayProjects(projects) {
         });
 
         card.innerHTML = `
-            <!-- زر الحذف في الزاوية -->
             <button class="project-card-delete" onclick="deleteProject(event, ${project.id})" title="Delete project">
                 ✕
             </button>
             
-            <!-- أيقونة الملف -->
             <div class="project-card-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
                     stroke="currentColor" stroke-width="2">
@@ -107,13 +93,10 @@ function displayProjects(projects) {
                 </svg>
             </div>
 
-            <!-- اسم المشروع -->
             <div class="project-card-name">${escapeHTML(project.name)}</div>
 
-            <!-- عدد الكتل والبيانات الميتا -->
             <div class="project-card-meta">${project.blocksCount || 0} blocks</div>
 
-            <!-- زر الفتح -->
             <button class="project-card-open">
                 Open <span>→</span>
             </button>
@@ -123,19 +106,15 @@ function displayProjects(projects) {
     });
 }
 
-/**
- * إنشاء مشروع جديد وإرسال طلب POST إلى الـ Backend
- */
 function createProject() {
     const input = document.getElementById('projectNameInput');
     const projectName = input.value.trim();
 
     if (!projectName) {
-        alert('يرجى إدخال اسم المشروع أولاً.');
+        alert('Please enter a project name first.');
         return;
     }
 
-    // إرسال طلب POST لحفظ المشروع الجديد في الـ backend
     fetch('/api/projects', {
         method: 'POST',
         headers: {
@@ -152,33 +131,26 @@ function createProject() {
         })
         .then(newProject => {
             closeModal();
-            fetchProjects(); // إعادة تحميل القائمة من الخادم
-            // توجيه المستخدم مباشرة لصفحة المحرر الخاصة بالمشروع الجديد
+            fetchProjects();
             openProject(newProject.id);
         })
         .catch(error => {
             console.error('Error creating project:', error);
             if (error.message === 'DUPLICATE_NAME') {
-                alert('⚠️ يوجد مشروع بهذا الاسم مسبقاً!\n\nالرجاء اختيار اسم آخر.');
+                alert('A project with this name already exists!\n\nPlease choose another name.');
             } else {
-                alert('فشل إنشاء المشروع. يرجى المحاولة مرة أخرى.');
+                alert('Failed to create project. Please try again.');
             }
         });
 }
 
-/**
- * حذف مشروع من الـ Backend
- * @param {Event} event الحدث لمنع انتشار الضغطة للبطاقة بأكملها
- * @param {number} projectId معرف المشروع
- */
 function deleteProject(event, projectId) {
-    event.stopPropagation(); // منع انتقال الضغطة لفتح المشروع
+    event.stopPropagation();
 
-    if (!confirm('هل أنت متأكد من رغبتك في حذف هذا المشروع؟ لا يمكن التراجع عن هذا الإجراء.')) {
+    if (!confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
         return;
     }
 
-    // إرسال طلب DELETE إلى الـ backend
     fetch(`/api/projects/${projectId}`, {
         method: 'DELETE'
     })
@@ -187,25 +159,18 @@ function deleteProject(event, projectId) {
             return response.json();
         })
         .then(() => {
-            fetchProjects(); // تحديث الشبكة بعد الحذف
+            fetchProjects();
         })
         .catch(error => {
             console.error('Error deleting project:', error);
-            alert('فشل حذف المشروع.');
+            alert('Failed to delete project.');
         });
 }
 
-/**
- * توجيه المتصفح لصفحة المحرر
- * @param {number} projectId معرف المشروع
- */
 function openProject(projectId) {
     window.location.href = `editor.html?project=${projectId}`;
 }
 
-/**
- * فلترة المشاريع محلياً أثناء الكتابة في حقل البحث
- */
 function filterProjects() {
     const searchValue = document.getElementById('searchInput').value.toLowerCase();
     const filtered = localProjects.filter(project =>
@@ -214,7 +179,7 @@ function filterProjects() {
     displayProjects(filtered);
 }
 
-// ===== MODAL FUNCTIONS - نوافذ الحوار المنبثقة =====
+// ===== MODAL FUNCTIONS =====
 
 function openModal() {
     const overlay = document.getElementById('modalOverlay');
@@ -240,9 +205,6 @@ function closeModalOnOverlay(event) {
     }
 }
 
-/**
- * تنظيف نصوص المدخلات لمنع هجمات XSS
- */
 function escapeHTML(text) {
     const map = {
         '&': '&amp;',

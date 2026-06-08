@@ -1,22 +1,22 @@
 /* =============================================
-   VARIABLES - المتغيرات العامة للألوان والخطوط
+   VARIABLES - Global color and font variables
    ============================================= */
 :root {
-    --primary:       #4f46e5;   /* اللون الأزرق الأساسي */
-    --primary-dark:  #3730a3;   /* أزرق أغمق للـ hover */
-    --primary-light: #e9ecff;   /* أزرق فاتح جداً للخلفيات */
-    --text-dark:     #0f172a;   /* لون النص الداكن */
-    --text-mid:      #374151;   /* نص متوسط */
-    --text-light:    #64748b;   /* نص فاتح للأوصاف */
-    --bg:            #ffffff;   /* خلفية الصفحة */
-    --bg-section:    #f8f7ff;   /* خلفية فاتحة للأقسام */
-    --border:        #e5e7eb;   /* لون الحدود */
-    --radius:        12px;      /* انحناء الزوايا الموحد */
-    --shadow:        0 4px 20px rgba(0,0,0,0.07); /* ظل خفيف */
+    --primary:       #4f46e5;
+    --primary-dark:  #3730a3;
+    --primary-light: #e9ecff;
+    --text-dark:     #0f172a;
+    --text-mid:      #374151;
+    --text-light:    #64748b;
+    --bg:            #ffffff;
+    --bg-section:    #f8f7ff;
+    --border:        #e5e7eb;
+    --radius:        12px;
+    --shadow:        0 4px 20px rgba(0,0,0,0.07);
 }
 
 /* =============================================
-   DARK MODE - الوضع الليلي
+   DARK MODE
    ============================================= */
 body.dark {
     --bg:          #0f172a;
@@ -29,7 +29,7 @@ body.dark {
 }
 
 /* =============================================
-   RESET & BASE - إعدادات أساسية
+   RESET & BASE
    ============================================= */
 * {
     margin: 0;
@@ -45,7 +45,7 @@ body {
 }
 
 /* =============================================
-   NAVBAR - شريط التنقل العلوي
+   NAVBAR
    ============================================= */
 .navbar {
     position: fixed;
@@ -113,7 +113,6 @@ body {
     gap: 12px;
 }
 
-/* زر تبديل الوضع الليلي */
 .dark-toggle {
     background: none;
     border: 1px solid var(--border);
@@ -130,7 +129,7 @@ body {
 }
 
 /* =============================================
-   HERO SECTION - القسم الرئيسي
+   HERO SECTION
    ============================================= */
 .hero {
     padding-top: 100px;
@@ -233,7 +232,7 @@ body {
 }
 
 /* =============================================
-   FEATURES SECTION - قسم الميزات الثلاث
+   FEATURES SECTION
    ============================================= */
 .features-section {
     padding: 60px 80px 80px;
@@ -285,7 +284,7 @@ body {
 .red-box    { background: #ffe4e6; color: #e11d48;         box-shadow: 0 8px 20px rgba(225,29,72,0.15);  }
 
 /* =============================================
-   STATS SECTION - قسم الإحصائيات
+   STATS SECTION
    ============================================= */
 .stats-section {
     background-color: var(--bg-section);
@@ -349,7 +348,7 @@ body {
 }
 
 /* =============================================
-   ANIMATIONS - الحركات
+   ANIMATIONS
    ============================================= */
 @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -362,7 +361,7 @@ body {
 }
 
 /* =============================================
-   RESPONSIVE - تجاوب مع شاشات الموبايل
+   RESPONSIVE
    ============================================= */
 @media (max-width: 900px) {
     .hero {

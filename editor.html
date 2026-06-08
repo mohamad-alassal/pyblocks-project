@@ -6,21 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PythonBlocks – Block Editor</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700;800&display=swap" rel="stylesheet">
-    <!-- ملف CSS خاص بالمحرر -->
     <link rel="stylesheet" href="Css/editor.css">
     <!-- Google Blockly Scripts -->
-    <script src="https://unpkg.com/blockly/blockly_compressed.js"></script>
-    <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
-    <script src="https://unpkg.com/blockly/python_compressed.js"></script>
-    <script src="https://unpkg.com/blockly/msg/en.js"></script>
+    <script src="https://unpkg.com/blockly@10.4.3/blockly_compressed.js"></script>
+    <script src="https://unpkg.com/blockly@10.4.3/blocks_compressed.js"></script>
+    <script src="https://unpkg.com/blockly@10.4.3/python_compressed.js"></script>
+    <script src="https://unpkg.com/blockly@10.4.3/msg/en.js"></script>
 </head>
 
 <body>
 
     <!-- ===== EDITOR HEADER ===== -->
-    <!-- شريط علوي خاص بالمحرر -->
     <header class="editor-header">
-        <!-- زر الرجوع + اسم المشروع -->
         <div class="header-left">
             <a href="Projects.html" class="back-btn" title="Back to projects">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
@@ -34,9 +31,7 @@
             </div>
         </div>
 
-        <!-- أزرار الإجراءات على اليمين -->
         <div class="header-right">
-            <!-- زر تبديل الوضع الداكن -->
             <button class="header-btn copy-btn" id="darkToggle" title="Toggle dark mode">🌙</button>
             <button class="header-btn copy-btn" id="copyCodeBtn" title="Copy Python code">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" 
@@ -80,11 +75,10 @@
         <!-- ===== BOTTOM PANEL: Code Preview & Console Output side-by-side ===== -->
         <section class="bottom-panel" id="bottomPanel">
             
-            <!-- شريط التحكم باللوحة السفلية (التصغير والتوسيع) -->
             <div class="bottom-panel-bar" id="bottomPanelBar">
                 <div class="bar-left">
                     <span class="bar-icon">💻</span>
-                    <span class="bar-title">Console & Code Preview (الكونسول ومعاينة الكود)</span>
+                    <span class="bar-title">Console & Code Preview</span>
                 </div>
                 <button class="bar-toggle-btn" id="togglePanelBtn" title="Minimize/Maximize panel">
                     ▼ Minimize
@@ -112,7 +106,7 @@
                     </div>
                     <div class="panel-body console-body">
                         <pre class="console-display" id="consoleDisplay">Ready to run...</pre>
-                        <!-- زر تشغيل الكود في الكونسول -->
+                        <textarea class="console-input" id="stdinInput" placeholder="Input values (one per line) for input() calls..."></textarea>
                         <button class="run-script-btn" id="runBtn" title="Run Python Script">
                             <span>✈</span> RUN_SCRIPT
                         </button>
@@ -125,9 +119,7 @@
     </main>
 
     <!-- ===== JAVASCRIPT ===== -->
-    <!-- كتل Python المخصصة -->
     <script src="javascript/python-blocks.js"></script>
-    <!-- منطق المحرر الرئيسي -->
     <script src="javascript/editor.js"></script>
 
 </body>

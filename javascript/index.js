@@ -1,20 +1,18 @@
 /* =============================================
-   INDEX.JS - منطق الصفحة الرئيسية (Landing Page)
+   INDEX.JS - Landing page logic
    ============================================= */
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // ===== DARK MODE - تفعيل وإدارة الوضع الداكن =====
+    // ===== DARK MODE =====
     const darkToggle = document.getElementById('darkToggle');
     const savedMode = localStorage.getItem('darkMode');
     
-    // التحقق من الوضع المحفوظ في الـ LocalStorage لتطبيقه فوراً
     if (savedMode === 'enabled') {
         document.body.classList.add('dark');
-        if (darkToggle) darkToggle.textContent = '☀️'; // تغيير الرمز لشمس
+        if (darkToggle) darkToggle.textContent = '☀️';
     }
 
-    // زر تبديل الوضع الداكن/الفاتح
     if (darkToggle) {
         darkToggle.addEventListener('click', function() {
             document.body.classList.toggle('dark');
@@ -29,12 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ===== STATS COUNTER ANIMATION - أنيميشن الأرقام الإحصائية =====
+    // ===== STATS COUNTER ANIMATION =====
     const statsSection = document.querySelector('.stats-section');
     
     if (statsSection) {
         const observerOptions = {
-            threshold: 0.5 // يشتغل الأنيميشن عندما يظهر 50% من القسم على الشاشة
+            threshold: 0.5
         };
 
         const observer = new IntersectionObserver(function(entries) {
@@ -44,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     counters.forEach(counter => {
                         animateCounter(counter);
                     });
-                    // إيقاف مراقبة العنصر بعد تشغيل الأنيميشن مرة واحدة
                     observer.unobserve(entry.target);
                 }
             });
@@ -54,9 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-/**
- * دالة الانتقال السلس إلى قسم الميزات
- */
 function scrollToFeatures() {
     const featuresSection = document.getElementById('features');
     if (featuresSection) {
@@ -67,22 +61,17 @@ function scrollToFeatures() {
     }
 }
 
-/**
- * دالة تحريك العداد رقمياً من 0 إلى الهدف
- * @param {HTMLElement} element عنصر العداد الرقمي
- */
 function animateCounter(element) {
     const target = parseInt(element.getAttribute('data-target'));
     const suffix = element.getAttribute('data-suffix') || '';
     let current = 0;
-    const duration = 1500; // مدة الأنيميشن بالملي ثانية
+    const duration = 1500;
     const startTime = performance.now();
 
     function update(currentTime) {
         const elapsedTime = currentTime - startTime;
         const progress = Math.min(elapsedTime / duration, 1);
         
-        // استخدام دالة easeOutQuad للحصول على حركة عد طبيعية وسلسة
         const easeProgress = progress * (2 - progress);
         current = Math.floor(easeProgress * target);
 

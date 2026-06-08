@@ -2,7 +2,7 @@
   {
     "id": 1780647971724,
     "name": "Test Project",
-    "blocksCount": 12,
+    "blocksCount": 11,
     "workspaceState": {
       "blocks": {
         "languageVersion": 0,
@@ -11,9 +11,17 @@
             "type": "controls_if",
             "id": "WMF*.?2}bZbE$~+@|YsM",
             "x": 113,
-            "y": 13,
+            "y": 63,
             "extraState": {
               "hasElse": true
+            },
+            "icons": {
+              "comment": {
+                "text": "this code is the base",
+                "pinned": false,
+                "height": 80,
+                "width": 160
+              }
             },
             "inputs": {
               "IF0": {
@@ -55,7 +63,7 @@
                         "type": "math_number",
                         "id": "kEZkQ4J(hUZ*nq;GL|^n",
                         "fields": {
-                          "NUM": 50
+                          "NUM": 12
                         }
                       }
                     },
@@ -81,29 +89,20 @@
               },
               "ELSE": {
                 "block": {
-                  "type": "controls_repeat_ext",
-                  "id": "7i]Q:/OTh#mz+ILs{K*+",
+                  "type": "text_print",
+                  "id": "3@dIkn/8$3s9j5QSii3J",
                   "inputs": {
-                    "TIMES": {
+                    "TEXT": {
                       "block": {
-                        "type": "math_number",
-                        "id": "[%qMhF5RJKGYGN@11Knt",
-                        "fields": {
-                          "NUM": 50
-                        }
-                      }
-                    },
-                    "DO": {
-                      "block": {
-                        "type": "text_print",
-                        "id": "3@dIkn/8$3s9j5QSii3J",
+                        "type": "python_input",
+                        "id": "Cbn{zLbX5M2Arl;Go}8d",
                         "inputs": {
-                          "TEXT": {
+                          "PROMPT": {
                             "block": {
                               "type": "text",
-                              "id": "N8FoO2?1f*9$UP%D6Da.",
+                              "id": "7HAj|O;x?d=#Cyl^3%**",
                               "fields": {
-                                "TEXT": "oi oi eye eye"
+                                "TEXT": "hala fek"
                               }
                             }
                           }
@@ -118,15 +117,7 @@
         ]
       }
     },
-    "pythonCode": "if 9 == 10:\n  for count in range(50):\n    print('10')\nelse:\n  for count2 in range(50):\n    print('oi oi eye eye')\n",
+    "pythonCode": "# this code is the base\nif 9 == 10:\n  for count in range(12):\n    print('10')\nelse:\n  print(input('hala fek'))\n",
     "createdAt": "2026-06-05T08:26:11.724Z"
-  },
-  {
-    "id": 1780869489724,
-    "name": ".",
-    "blocksCount": 0,
-    "workspaceState": {},
-    "pythonCode": "",
-    "createdAt": "2026-06-07T21:58:09.724Z"
   }
 ]
