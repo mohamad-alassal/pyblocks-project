@@ -129,52 +129,50 @@ const TOOLBOX_DEFINITION = {
         },
         {
             "kind": "category",
-            "name": "Python Libraries",
-            "colour": "210",
+            "name": "Tkinter GUI",
+            "colour": "290",
             "contents": [
                 {
                     "kind": "label",
-                    "text": "Random"
+                    "text": "── Window & App ──"
                 },
-                { "kind": "block", "type": "python_random_randint" },
-                { "kind": "block", "type": "python_random_choice" },
-                { "kind": "block", "type": "python_random_random" },
+                { "kind": "block", "type": "tk_create_window" },
+                { "kind": "block", "type": "tk_set_title" },
+                { "kind": "block", "type": "tk_set_geometry" },
+                { "kind": "block", "type": "tk_mainloop" },
                 {
                     "kind": "label",
-                    "text": "Time"
+                    "text": "── Widgets ──"
                 },
-                { "kind": "block", "type": "python_time_sleep" },
-                { "kind": "block", "type": "python_time_time" },
+                { "kind": "block", "type": "tk_label" },
+                { "kind": "block", "type": "tk_button" },
+                { "kind": "block", "type": "tk_entry" },
+                { "kind": "block", "type": "tk_text_widget" },
+                { "kind": "block", "type": "tk_frame" },
                 {
                     "kind": "label",
-                    "text": "Math Advanced"
+                    "text": "── Layout ──"
                 },
-                { "kind": "block", "type": "python_math_sqrt" },
-                { "kind": "block", "type": "python_math_pow" },
-                { "kind": "block", "type": "python_math_floor" },
-                { "kind": "block", "type": "python_math_ceil" },
-                { "kind": "block", "type": "python_math_pi" },
+                { "kind": "block", "type": "tk_pack" },
+                { "kind": "block", "type": "tk_grid" },
+                { "kind": "block", "type": "tk_place" },
                 {
                     "kind": "label",
-                    "text": "Datetime"
+                    "text": "── Events ──"
                 },
-                { "kind": "block", "type": "python_datetime_now" },
-                { "kind": "block", "type": "python_datetime_year" },
-                { "kind": "block", "type": "python_datetime_month" },
-                { "kind": "block", "type": "python_datetime_day" }
-            ]
-        },
-        {
-            "kind": "category",
-            "name": "Python Built-in",
-            "colour": "160",
-            "contents": [
-                { "kind": "block", "type": "python_input" },
-                { "kind": "block", "type": "python_int" },
-                { "kind": "block", "type": "python_float" },
-                { "kind": "block", "type": "python_str" },
-                { "kind": "block", "type": "python_len" },
-                { "kind": "block", "type": "python_range" }
+                { "kind": "block", "type": "tk_bind_button_command" },
+                { "kind": "block", "type": "tk_messagebox_info" },
+                { "kind": "block", "type": "tk_messagebox_error" },
+                { "kind": "block", "type": "tk_messagebox_ask" },
+                {
+                    "kind": "label",
+                    "text": "── Widget Config ──"
+                },
+                { "kind": "block", "type": "tk_config_bg" },
+                { "kind": "block", "type": "tk_config_fg" },
+                { "kind": "block", "type": "tk_config_font" },
+                { "kind": "block", "type": "tk_get_entry" },
+                { "kind": "block", "type": "tk_set_label_text" }
             ]
         },
         {
@@ -268,6 +266,41 @@ function initBlockly() {
     window.addEventListener('resize', function () {
         Blockly.svgResize(workspace);
     });
+
+    // Fix toolbox selected category styling
+    fixToolboxSelection();
+}
+
+function fixToolboxSelection() {
+    // Use a MutationObserver to watch when Blockly adds/removes the selected class
+    const toolbox = document.querySelector('.blocklyToolboxDiv');
+    if (!toolbox) {
+        // Toolbox not ready yet, retry
+        setTimeout(fixToolboxSelection, 300);
+        return;
+    }
+
+    const observer = new MutationObserver(function () {
+        document.querySelectorAll('.blocklyTreeRow').forEach(function (row) {
+            const isSelected = row.classList.contains('blocklyTreeSelected') ||
+                               row.closest('.blocklyTreeSelected') !== null;
+
+            if (isSelected) {
+                row.style.setProperty('background-color', '#4f46e5', 'important');
+                row.style.setProperty('color', '#ffffff', 'important');
+                row.style.setProperty('border-radius', '50px', 'important');
+                const label = row.querySelector('.blocklyTreeLabel');
+                if (label) label.style.setProperty('color', '#ffffff', 'important');
+            } else {
+                row.style.removeProperty('background-color');
+                row.style.removeProperty('color');
+                const label = row.querySelector('.blocklyTreeLabel');
+                if (label) label.style.removeProperty('color');
+            }
+        });
+    });
+
+    observer.observe(toolbox, { attributes: true, subtree: true, attributeFilter: ['class'] });
 }
 
 function updatePythonCodePreview() {
@@ -312,8 +345,9 @@ function loadProjectData() {
         })
         .catch(error => {
             console.error('Error loading project:', error);
-            alert('Failed to load project data from the server.');
-            window.location.href = 'Projects.html';
+            if (projectStatus) projectStatus.textContent = '● Load Error';
+            document.getElementById('projectName').textContent = projectData ? projectData.name : 'Error';
+            alert('Failed to load project data from the server. Check that the server is running.');
         });
 }
 
@@ -413,6 +447,9 @@ function setupEventListeners() {
             runPythonCode();
         });
     }
+
+    // ===== RESIZABLE PANEL SPLITTER =====
+    initPanelResizer();
 }
 
 function runPythonCode() {
@@ -552,4 +589,59 @@ function initBottomPanel() {
             }
         }, 300);
     }
+}
+
+// ===== RESIZABLE PANEL SPLITTER =====
+
+function initPanelResizer() {
+    const resizer = document.getElementById('panelResizer');
+    const codePanel = document.getElementById('codePanel');
+    const consolePanel = document.getElementById('consolePanel');
+    const container = document.getElementById('bottomPanelContent');
+
+    if (!resizer || !codePanel || !consolePanel || !container) return;
+
+    let isResizing = false;
+    let startX = 0;
+    let startCodeWidth = 0;
+
+    resizer.addEventListener('mousedown', function (e) {
+        isResizing = true;
+        startX = e.clientX;
+        startCodeWidth = codePanel.getBoundingClientRect().width;
+
+        resizer.classList.add('dragging');
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function (e) {
+        if (!isResizing) return;
+
+        const containerWidth = container.getBoundingClientRect().width;
+        const resizerWidth = resizer.offsetWidth;
+        const delta = e.clientX - startX;
+        const newCodeWidth = startCodeWidth + delta;
+
+        const minWidth = 80;
+        const maxWidth = containerWidth - resizerWidth - minWidth;
+
+        if (newCodeWidth < minWidth || newCodeWidth > maxWidth) return;
+
+        const codePct = (newCodeWidth / containerWidth) * 100;
+        const consolePct = ((containerWidth - resizerWidth - newCodeWidth) / containerWidth) * 100;
+
+        codePanel.style.flex = `0 0 ${codePct}%`;
+        consolePanel.style.flex = `0 0 ${consolePct}%`;
+    });
+
+    document.addEventListener('mouseup', function () {
+        if (!isResizing) return;
+        isResizing = false;
+        resizer.classList.remove('dragging');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+    });
 }

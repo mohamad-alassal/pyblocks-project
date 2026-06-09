@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PythonBlocks – How It Works</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Css/how-it-works.css">
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <div class="logo-icon">P</div>
+            <span class="logo-text">PythonBlocks.</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="Projects.html" class="nav-link">Projects</a>
+            <a href="how-it-works.html" class="nav-link active">How It Works</a>
+        </div>
+        <div class="nav-actions">
+            <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hiw-hero">
+        <div class="hiw-badge">
+            <span>📖</span>
+            <span>Platform Guide</span>
+        </div>
+        <h1 class="hiw-title">How PythonBlocks Works</h1>
+        <p class="hiw-subtitle">
+            A professional breakdown of every layer of the platform — from the visual editor to the
+            Python execution engine running on the server.
+        </p>
+    </section>
+
+    <!-- ===== OVERVIEW ===== -->
+    <section class="hiw-section">
+        <div class="hiw-container">
+            <div class="section-label">Overview</div>
+            <h2 class="section-title">What is PythonBlocks?</h2>
+            <p class="section-text">
+                PythonBlocks is a <strong>visual programming environment</strong> built on top of
+                Google's open-source <strong>Blockly</strong> library. It lets beginners and kids
+                construct Python programs by snapping graphical blocks together — eliminating syntax
+                errors and lowering the barrier to entry for real programming.
+            </p>
+            <p class="section-text">
+                Every block in the workspace maps 1-to-1 to a Python statement or expression.
+                As you build, a live code preview shows you the exact Python that will run.
+                When you hit <em>RUN_SCRIPT</em>, that code is sent to a <strong>Node.js backend</strong>
+                which executes it in a sandboxed Python process and streams the output back to you.
+            </p>
+
+            <div class="overview-cards">
+                <div class="ov-card">
+                    <div class="ov-icon" style="background:#e9ecff; color:#4f46e5;">🧩</div>
+                    <h3>Block Editor</h3>
+                    <p>Drag-and-drop interface powered by Google Blockly. Every block is colour-coded by category.</p>
+                </div>
+                <div class="ov-card">
+                    <div class="ov-icon" style="background:#dcfce7; color:#16a34a;">⚙️</div>
+                    <h3>Code Generator</h3>
+                    <p>Blockly's Python code generator converts your workspace in real-time to valid Python 3 code.</p>
+                </div>
+                <div class="ov-card">
+                    <div class="ov-icon" style="background:#fef9c3; color:#854d0e;">🖥️</div>
+                    <h3>Server Execution</h3>
+                    <p>A Node.js Express server spawns a child Python process to safely run your code with a timeout.</p>
+                </div>
+                <div class="ov-card">
+                    <div class="ov-icon" style="background:#ffe4e6; color:#e11d48;">💾</div>
+                    <h3>Project Storage</h3>
+                    <p>Projects are persisted in a local SQLite database via <code>better-sqlite3</code> — no cloud needed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STEP BY STEP ===== -->
+    <section class="hiw-section alt-bg">
+        <div class="hiw-container">
+            <div class="section-label">Step by Step</div>
+            <h2 class="section-title">Your Coding Journey</h2>
+
+            <div class="steps">
+
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Create a Project</h3>
+                        <p>
+                            Go to the <strong>Projects</strong> page and click <em>New Mission</em>.
+                            Give your project a name and it gets saved immediately to the database.
+                            You can have as many projects as you want — each one is independent.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Open the Block Editor</h3>
+                        <p>
+                            Click a project card to open the visual editor. On the left you'll see the
+                            <strong>Toolbox</strong> — a categorised library of blocks covering Logic,
+                            Loops, Math, Text, Lists, Tkinter GUI, Variables, and Functions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Drag &amp; Drop Blocks</h3>
+                        <p>
+                            Click a category in the toolbox to reveal its blocks in a flyout panel.
+                            Drag any block onto the <strong>workspace canvas</strong>.
+                            Blocks snap together magnetically — output connectors on the right connect to
+                            input slots, and statement blocks stack top-to-bottom just like lines of code.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Watch Real Python Generate</h3>
+                        <p>
+                            The <strong>Code Preview</strong> panel at the bottom updates live as you edit.
+                            It uses Blockly's built-in Python code generator which understands operator
+                            precedence, indentation, and import statements. You can copy the code at any
+                            time with the <em>Copy Code</em> button.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3>Run Your Code</h3>
+                        <p>
+                            Click <strong>RUN_SCRIPT</strong>. The generated Python is sent via a
+                            <code>POST /api/run</code> request to the server. The server spawns
+                            <code>python3</code> with a 5-second timeout. <code>stdout</code> and
+                            <code>stderr</code> are captured and returned to the <strong>Console Output</strong>
+                            panel so you see results instantly.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">06</div>
+                    <div class="step-content">
+                        <h3>Auto-Save &amp; Come Back</h3>
+                        <p>
+                            Every change triggers an auto-save after 1.5 seconds of inactivity.
+                            The workspace state (block positions and connections) is serialised to JSON
+                            and stored in the database. Reopening a project restores everything exactly
+                            as you left it.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TECH STACK ===== -->
+    <section class="hiw-section">
+        <div class="hiw-container">
+            <div class="section-label">Technology</div>
+            <h2 class="section-title">What Powers This Platform</h2>
+            <p class="section-text">
+                PythonBlocks is built entirely with open-source, well-maintained technologies.
+                There are no frameworks like React or Vue — just vanilla HTML, CSS, and JavaScript
+                on the front end, with a lightweight Node.js server on the back end.
+            </p>
+
+            <div class="tech-grid">
+
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <span class="tech-badge frontend-badge">Frontend</span>
+                        <h3>Google Blockly</h3>
+                    </div>
+                    <p>
+                        An open-source JavaScript library from Google that provides the drag-and-drop
+                        block editor. It handles workspace rendering, block snapping, serialisation, and
+                        code generation for multiple languages including Python.
+                    </p>
+                    <a href="https://developers.google.com/blockly" target="_blank" class="tech-link">
+                        developers.google.com/blockly →
+                    </a>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <span class="tech-badge frontend-badge">Frontend</span>
+                        <h3>Vanilla JS / CSS</h3>
+                    </div>
+                    <p>
+                        All UI logic (dark mode, project management, code preview, console panel) is
+                        written in plain JavaScript with no dependencies. Styles use CSS custom properties
+                        (variables) for instant light/dark theming.
+                    </p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <span class="tech-badge backend-badge">Backend</span>
+                        <h3>Node.js + Express</h3>
+                    </div>
+                    <p>
+                        A small Express server exposes REST API endpoints:
+                        <code>GET/POST/PUT/DELETE /api/projects</code> for project management, and
+                        <code>POST /api/run</code> for code execution. It also serves all static files.
+                    </p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <span class="tech-badge backend-badge">Backend</span>
+                        <h3>Python 3 Subprocess</h3>
+                    </div>
+                    <p>
+                        When you run code, Node.js calls <code>child_process.spawn('python3', ['-c', code])</code>.
+                        The process runs with a hard 5-second timeout to prevent infinite loops from
+                        blocking the server. stdin can be pre-filled for <code>input()</code> calls.
+                    </p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <span class="tech-badge db-badge">Storage</span>
+                        <h3>SQLite via better-sqlite3</h3>
+                    </div>
+                    <p>
+                        Projects are stored in a local SQLite database file. The
+                        <code>better-sqlite3</code> package provides synchronous, high-performance access
+                        without needing a separate database server — perfect for a local development tool.
+                    </p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <span class="tech-badge gui-badge">GUI Library</span>
+                        <h3>Tkinter Blocks</h3>
+                    </div>
+                    <p>
+                        A custom set of Blockly blocks that generate valid <code>tkinter</code> Python code.
+                        This lets you build real desktop GUI windows — labels, buttons, entry fields,
+                        message boxes, and more — all by dragging blocks together.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ARCHITECTURE ===== -->
+    <section class="hiw-section alt-bg">
+        <div class="hiw-container">
+            <div class="section-label">Architecture</div>
+            <h2 class="section-title">System Architecture</h2>
+            <p class="section-text">
+                Here's a high-level view of how the components communicate:
+            </p>
+
+            <div class="arch-diagram">
+                <div class="arch-layer">
+                    <div class="arch-box browser-box">
+                        <div class="arch-icon">🌐</div>
+                        <strong>Browser (Client)</strong>
+                        <ul>
+                            <li>HTML / CSS / Vanilla JS</li>
+                            <li>Google Blockly workspace</li>
+                            <li>Live code preview</li>
+                            <li>Dark mode &amp; localStorage</li>
+                        </ul>
+                    </div>
+                    <div class="arch-arrow">
+                        <span>HTTP REST ↕</span>
+                    </div>
+                    <div class="arch-box server-box">
+                        <div class="arch-icon">⚙️</div>
+                        <strong>Node.js Server</strong>
+                        <ul>
+                            <li>Express.js REST API</li>
+                            <li>Static file serving</li>
+                            <li>Project CRUD endpoints</li>
+                            <li>Code execution endpoint</li>
+                        </ul>
+                    </div>
+                    <div class="arch-arrow">
+                        <span>spawn() ↕</span>
+                    </div>
+                    <div class="arch-box python-box">
+                        <div class="arch-icon">🐍</div>
+                        <strong>Python Process</strong>
+                        <ul>
+                            <li>Python 3 interpreter</li>
+                            <li>Sandboxed child process</li>
+                            <li>5-second execution limit</li>
+                            <li>stdout + stderr capture</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="arch-db">
+                    <div class="arch-box db-box">
+                        <div class="arch-icon">💾</div>
+                        <strong>SQLite Database</strong>
+                        <ul>
+                            <li>Project metadata</li>
+                            <li>Workspace JSON state</li>
+                            <li>Generated Python code</li>
+                        </ul>
+                    </div>
+                    <p class="arch-db-note">Read/written by the Node.js server via better-sqlite3</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="hiw-section">
+        <div class="hiw-container">
+            <div class="section-label">FAQ</div>
+            <h2 class="section-title">Common Questions</h2>
+
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Is this safe for kids?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes. Code runs in a separate Python child process that is killed after 5 seconds.
+                        It cannot access the operating system, the network, or any files outside the
+                        sandboxed environment beyond what Python's standard library provides.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Does Tkinter code actually open a GUI window?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Tkinter generates code that is designed to run as a standalone Python script.
+                        Copy the generated code from the <em>Code Preview</em> panel, save it as a
+                        <code>.py</code> file, and run it with Python installed on your computer —
+                        the window will open. Running it inside the browser console won't show a GUI
+                        because there's no display available in the server subprocess.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Can I run code that uses input()?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes. Type your input values (one per line) in the text area below the console
+                        before clicking RUN_SCRIPT. They are piped to the Python process's stdin,
+                        so each <code>input()</code> call will consume one line.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Where is my data stored?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Everything is stored locally on your machine in a SQLite file (<code>projects.db</code>)
+                        inside the project folder. Nothing is sent to any external server or cloud service.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Can I see the Python code without running it?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely. The <strong>Code Preview</strong> panel on the left side of the
+                        bottom bar shows your generated Python code live as you edit. Use the
+                        <em>Copy Code</em> button in the header to copy it to your clipboard.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What age group is this for?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        PythonBlocks is designed for kids aged 7 and up, and for any beginner who wants
+                        a visual introduction to Python before typing code. The Tkinter category is more
+                        suited to older students (11+) who want to start building real desktop apps.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="hiw-cta">
+        <h2>Ready to start building?</h2>
+        <p>Open the editor and drag your first block — it takes under 30 seconds.</p>
+        <a href="Projects.html" class="cta-btn">Go to My Projects →</a>
+    </section>
+
+    <script src="javascript/how-it-works.js"></script>
+</body>
+</html>

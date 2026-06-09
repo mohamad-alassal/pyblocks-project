@@ -87,7 +87,7 @@
 
             <div class="bottom-panel-content" id="bottomPanelContent">
                 <!-- 1. Code Preview Panel (Left) -->
-                <div class="panel-half code-panel">
+                <div class="panel-half code-panel" id="codePanel">
                     <div class="panel-header code-panel-header">
                         <span class="panel-icon">💻</span>
                         <span class="panel-title">CODE PREVIEW</span>
@@ -97,8 +97,11 @@
                     </div>
                 </div>
 
+                <!-- Resizer handle -->
+                <div class="panel-resizer" id="panelResizer" title="Drag to resize panels"></div>
+
                 <!-- 2. Console Output Panel (Right) -->
-                <div class="panel-half console-panel">
+                <div class="panel-half console-panel" id="consolePanel">
                     <div class="panel-header console-panel-header">
                         <span class="panel-icon">▶</span>
                         <span class="panel-title">CONSOLE OUTPUT</span>
