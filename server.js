@@ -107,45 +107,58 @@ app.post('/api/run', (req, res) => {
         return res.status(400).json({ error: 'No code provided' });
     }
 
-    // Random filename to avoid user request collisions
     const fileName = `run_${Date.now()}_${Math.floor(Math.random() * 1000)}.py`;
     const filePath = path.join(tempDir, fileName);
 
-    // Write code to temp file
+    // Detect if code uses tkinter — needs GUI / detached mode
+    const isTkinter = /import\s+tkinter|from\s+tkinter/.test(code);
+
     fs.writeFile(filePath, code, 'utf-8', (err) => {
         if (err) {
             console.error('Error writing temp file:', err);
             return res.status(500).json({ error: 'Failed to prepare python code for execution' });
         }
 
-        // Run Python using spawn with stdin support and 5-second timeout
-        const py = spawn('py', [filePath], { timeout: 5000 });
+        if (isTkinter) {
+            // ── TKINTER MODE: launch detached GUI window, respond immediately ──
+            const gui = spawn('py', [filePath], {
+                detached: true,
+                stdio: 'ignore',
+                windowsHide: false   // show the window on Windows
+            });
+            gui.unref();   // don't keep server alive waiting for it
+
+            // Clean up file after a delay (window may still be opening)
+            setTimeout(() => {
+                fs.unlink(filePath, () => {});
+            }, 30000);
+
+            return res.json({
+                stdout: '✅ Tkinter window launched!\n\nYour GUI application is now running as a separate window on your desktop.\nClose the window to stop the program.',
+                stderr: '',
+                timedOut: false,
+                exitCode: 0,
+                isGui: true
+            });
+        }
+
+        // ── NORMAL MODE: capture stdout/stderr with timeout ──
+        const py = spawn('py', [filePath], { timeout: 10000 });
         let stdout = '';
         let stderr = '';
-        let timedOut = false;
 
-        // Pipe stdin input if provided
         if (stdin) {
             py.stdin.write(stdin);
         }
         py.stdin.end();
 
-        py.stdout.on('data', (data) => {
-            stdout += data.toString();
-        });
-
-        py.stderr.on('data', (data) => {
-            stderr += data.toString();
-        });
-
-        py.on('error', (err) => {
-            stderr += err.message;
-        });
+        py.stdout.on('data', (data) => { stdout += data.toString(); });
+        py.stderr.on('data', (data) => { stderr += data.toString(); });
+        py.on('error', (err) => { stderr += err.message; });
 
         py.on('close', (exitCode) => {
-            timedOut = exitCode === null;
+            const timedOut = exitCode === null;
 
-            // Delete temp file
             fs.unlink(filePath, (unlinkErr) => {
                 if (unlinkErr) console.error('Failed to delete temp file:', unlinkErr);
             });
@@ -154,7 +167,8 @@ app.post('/api/run', (req, res) => {
                 stdout: stdout || '',
                 stderr: stderr || '',
                 timedOut,
-                exitCode: exitCode === null ? 1 : exitCode
+                exitCode: exitCode === null ? 1 : exitCode,
+                isGui: false
             });
         });
     });

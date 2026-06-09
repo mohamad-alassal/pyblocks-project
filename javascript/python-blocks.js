@@ -502,7 +502,30 @@ Blockly.Python['tk_set_label_text'] = function (block) {
 
 
 // =============================================
-// COMPATIBILITY STUBS
+// RAW PYTHON BLOCK — shows full Python code as a single block
+// Used for complex projects like Calculator
+// =============================================
+
+Blockly.Blocks['raw_python'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField('🐍 Python Program');
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldLabelSerializable('(Full code stored — click RUN to launch)'), 'INFO');
+        this.setColour(290);
+        this.setPreviousStatement(false);
+        this.setNextStatement(false);
+        this.setTooltip('This block holds a complete Python program. Press RUN_SCRIPT to execute it.');
+        this.setDeletable(false);
+        this.setMovable(true);
+    }
+};
+
+Blockly.Python['raw_python'] = function (block) {
+    // The actual code is stored in pythonCode on the server,
+    // but we still return a placeholder so the preview works.
+    return '# Calculator program — press RUN_SCRIPT to launch the GUI window\n';
+};
 // These blocks existed in older saved projects.
 // Kept here so old workspaces still load correctly.
 // =============================================

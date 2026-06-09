@@ -127,5 +127,2646 @@
     "workspaceState": {},
     "pythonCode": "",
     "createdAt": "2026-06-09T21:07:43.804Z"
+  },
+  {
+    "id": 1781100000003,
+    "name": "Calculator (Blocks)",
+    "blocksCount": 222,
+    "workspaceState": {
+      "blocks": {
+        "languageVersion": 0,
+        "blocks": [
+          {
+            "type": "tk_create_window",
+            "id": "w_0",
+            "x": 30,
+            "y": 30,
+            "fields": {
+              "VAR": {
+                "id": "*LI~lc*q2~HJ|Aui(*94"
+              }
+            }
+          },
+          {
+            "type": "tk_set_title",
+            "id": "t_1",
+            "x": 30,
+            "y": 100,
+            "inputs": {
+              "WINDOW": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_2",
+                  "fields": {
+                    "VAR": {
+                      "id": ".=5Qo!=hUQRz6c9U!Mpi"
+                    }
+                  }
+                }
+              },
+              "TITLE": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_3",
+                  "fields": {
+                    "TEXT": "Calculator"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_set_geometry",
+            "id": "g_4",
+            "x": 30,
+            "y": 170,
+            "inputs": {
+              "WINDOW": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_5",
+                  "fields": {
+                    "VAR": {
+                      "id": "*q{TFOZQJzM.]yW|1^sg"
+                    }
+                  }
+                }
+              },
+              "SIZE": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_6",
+                  "fields": {
+                    "TEXT": "400x520"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_label",
+            "id": "l_7",
+            "x": 30,
+            "y": 240,
+            "fields": {
+              "VAR": {
+                "id": "d1tG,Q+f.~]n^s!OSvv~"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_8",
+                  "fields": {
+                    "VAR": {
+                      "id": "qFA~h@sSzVHr?LOc)$~K"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_9",
+                  "fields": {
+                    "TEXT": "0"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "g2_10",
+            "x": 260,
+            "y": 240,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_11",
+                  "fields": {
+                    "VAR": {
+                      "id": "WzP1]@_-r+*lXo,^?(+J"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_12",
+                  "fields": {
+                    "NUM": 0
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_13",
+                  "fields": {
+                    "NUM": 0
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_config_font",
+            "id": "cf_14",
+            "x": 30,
+            "y": 310,
+            "fields": {
+              "STYLE": "bold"
+            },
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_15",
+                  "fields": {
+                    "VAR": {
+                      "id": "8orZJZ/%cladpLw6b?wx"
+                    }
+                  }
+                }
+              },
+              "FAMILY": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_16",
+                  "fields": {
+                    "TEXT": "Segoe UI"
+                  }
+                }
+              },
+              "SIZE": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_17",
+                  "fields": {
+                    "NUM": 22
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_config_bg",
+            "id": "cb_18",
+            "x": 30,
+            "y": 380,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_19",
+                  "fields": {
+                    "VAR": {
+                      "id": "tD|~ea[PKxIgCrS2MF-j"
+                    }
+                  }
+                }
+              },
+              "COLOR": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_20",
+                  "fields": {
+                    "TEXT": "#ecf0f1"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_config_fg",
+            "id": "cf2_21",
+            "x": 30,
+            "y": 450,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_22",
+                  "fields": {
+                    "VAR": {
+                      "id": "^6eS/(QJ4F{[9VVZ,+$B"
+                    }
+                  }
+                }
+              },
+              "COLOR": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_23",
+                  "fields": {
+                    "TEXT": "#2c3e50"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_24",
+            "x": 480,
+            "y": 30,
+            "fields": {
+              "VAR": {
+                "id": "*{My^#l*=6TuOOUt;0h9"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_25",
+                  "fields": {
+                    "VAR": {
+                      "id": "*d@NwLdk6S9QibGJ6HYK"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_26",
+                  "fields": {
+                    "TEXT": "7"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_27",
+            "x": 650,
+            "y": 30,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_28",
+                  "fields": {
+                    "VAR": {
+                      "id": "SMc/^h4cxAF1Au[k8f}w"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_29",
+                  "fields": {
+                    "NUM": 1
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_30",
+                  "fields": {
+                    "NUM": 0
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_31",
+            "x": 820,
+            "y": 30,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_32",
+                  "fields": {
+                    "VAR": {
+                      "id": "%pFdnKJ=eD9_d[{:}u0t"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_33",
+                  "fields": {
+                    "TEXT": "lambda: click(7)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_34",
+            "x": 480,
+            "y": 90,
+            "fields": {
+              "VAR": {
+                "id": "}h5(Xe75zpI5s[;aXBzS"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_35",
+                  "fields": {
+                    "VAR": {
+                      "id": "z-w~XOv.kH5_xq)}K3%."
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_36",
+                  "fields": {
+                    "TEXT": "8"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_37",
+            "x": 650,
+            "y": 90,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_38",
+                  "fields": {
+                    "VAR": {
+                      "id": "{|*1Y]^TqA{b~b3l!Ffj"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_39",
+                  "fields": {
+                    "NUM": 1
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_40",
+                  "fields": {
+                    "NUM": 1
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_41",
+            "x": 820,
+            "y": 90,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_42",
+                  "fields": {
+                    "VAR": {
+                      "id": "O5{nzla0Z(@_IP:u;`{k"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_43",
+                  "fields": {
+                    "TEXT": "lambda: click(8)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_44",
+            "x": 480,
+            "y": 150,
+            "fields": {
+              "VAR": {
+                "id": "sGC5:;L$4B)P8e9|81$n"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_45",
+                  "fields": {
+                    "VAR": {
+                      "id": "Ov%9X:a]gTT{1gG}=7j*"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_46",
+                  "fields": {
+                    "TEXT": "9"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_47",
+            "x": 650,
+            "y": 150,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_48",
+                  "fields": {
+                    "VAR": {
+                      "id": "/]/VvDt1Jvvr=#O0Fga~"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_49",
+                  "fields": {
+                    "NUM": 1
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_50",
+                  "fields": {
+                    "NUM": 2
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_51",
+            "x": 820,
+            "y": 150,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_52",
+                  "fields": {
+                    "VAR": {
+                      "id": "fmr3!PY(3At)=sQ-l?=e"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_53",
+                  "fields": {
+                    "TEXT": "lambda: click(9)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_54",
+            "x": 480,
+            "y": 210,
+            "fields": {
+              "VAR": {
+                "id": "T[ST9QEreOi?D(rktY_]"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_55",
+                  "fields": {
+                    "VAR": {
+                      "id": "X=Q**4;CQqW/Vl)%`GUo"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_56",
+                  "fields": {
+                    "TEXT": "÷"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_57",
+            "x": 650,
+            "y": 210,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_58",
+                  "fields": {
+                    "VAR": {
+                      "id": "jRL)L|sqVJ%wbzbdT204"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_59",
+                  "fields": {
+                    "NUM": 1
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_60",
+                  "fields": {
+                    "NUM": 3
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_61",
+            "x": 820,
+            "y": 210,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_62",
+                  "fields": {
+                    "VAR": {
+                      "id": "`|e0s7^}@xZ#z!UoJD0H"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_63",
+                  "fields": {
+                    "TEXT": "lambda: handle_operator('/')"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_64",
+            "x": 480,
+            "y": 270,
+            "fields": {
+              "VAR": {
+                "id": "Y_@uyaIv=[HGmkewZM@J"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_65",
+                  "fields": {
+                    "VAR": {
+                      "id": "!K/giaP9Vg6R0X^]-TW?"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_66",
+                  "fields": {
+                    "TEXT": "4"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_67",
+            "x": 650,
+            "y": 270,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_68",
+                  "fields": {
+                    "VAR": {
+                      "id": "K*E|^q!~|I+s$=@jf-y5"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_69",
+                  "fields": {
+                    "NUM": 2
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_70",
+                  "fields": {
+                    "NUM": 0
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_71",
+            "x": 820,
+            "y": 270,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_72",
+                  "fields": {
+                    "VAR": {
+                      "id": "N7]01?byw*pWLY|T*;EE"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_73",
+                  "fields": {
+                    "TEXT": "lambda: click(4)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_74",
+            "x": 480,
+            "y": 330,
+            "fields": {
+              "VAR": {
+                "id": "TpJ3kZNpab=99)j|-P,O"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_75",
+                  "fields": {
+                    "VAR": {
+                      "id": "s(#-A0ShQ=aRet1(He7K"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_76",
+                  "fields": {
+                    "TEXT": "5"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_77",
+            "x": 650,
+            "y": 330,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_78",
+                  "fields": {
+                    "VAR": {
+                      "id": "%LYa%h|gtL%cj9o-p|!1"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_79",
+                  "fields": {
+                    "NUM": 2
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_80",
+                  "fields": {
+                    "NUM": 1
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_81",
+            "x": 820,
+            "y": 330,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_82",
+                  "fields": {
+                    "VAR": {
+                      "id": "L.R@j1v/c^ekGXC,?$/A"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_83",
+                  "fields": {
+                    "TEXT": "lambda: click(5)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_84",
+            "x": 480,
+            "y": 390,
+            "fields": {
+              "VAR": {
+                "id": "}y|7ZS[uMxCj^+S=20CQ"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_85",
+                  "fields": {
+                    "VAR": {
+                      "id": "O;y(o%-2Iyj[qVq!ihA%"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_86",
+                  "fields": {
+                    "TEXT": "6"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_87",
+            "x": 650,
+            "y": 390,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_88",
+                  "fields": {
+                    "VAR": {
+                      "id": "Bx}eJ/OwdoeQA)V7Cw8F"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_89",
+                  "fields": {
+                    "NUM": 2
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_90",
+                  "fields": {
+                    "NUM": 2
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_91",
+            "x": 820,
+            "y": 390,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_92",
+                  "fields": {
+                    "VAR": {
+                      "id": "^S0my5lqGVRR[4GXYAMf"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_93",
+                  "fields": {
+                    "TEXT": "lambda: click(6)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_94",
+            "x": 480,
+            "y": 450,
+            "fields": {
+              "VAR": {
+                "id": "7Uqv5];T3t3QE=^y)~k:"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_95",
+                  "fields": {
+                    "VAR": {
+                      "id": "hhE+.2~YQDV.|6sp_Su%"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_96",
+                  "fields": {
+                    "TEXT": "×"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_97",
+            "x": 650,
+            "y": 450,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_98",
+                  "fields": {
+                    "VAR": {
+                      "id": "bw+U?d8,z!Z?V##Ioi-{"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_99",
+                  "fields": {
+                    "NUM": 2
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_100",
+                  "fields": {
+                    "NUM": 3
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_101",
+            "x": 820,
+            "y": 450,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_102",
+                  "fields": {
+                    "VAR": {
+                      "id": "7xtCj|Wnk3`ZRi)E[B.P"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_103",
+                  "fields": {
+                    "TEXT": "lambda: handle_operator('*')"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_104",
+            "x": 480,
+            "y": 510,
+            "fields": {
+              "VAR": {
+                "id": "iq|87X67aR|Pd8@hW=?K"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_105",
+                  "fields": {
+                    "VAR": {
+                      "id": "+p+C`/z}3x(s;)C:v5X2"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_106",
+                  "fields": {
+                    "TEXT": "1"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_107",
+            "x": 650,
+            "y": 510,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_108",
+                  "fields": {
+                    "VAR": {
+                      "id": "r[Zk671+jm.=(pEQVlgZ"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_109",
+                  "fields": {
+                    "NUM": 3
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_110",
+                  "fields": {
+                    "NUM": 0
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_111",
+            "x": 820,
+            "y": 510,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_112",
+                  "fields": {
+                    "VAR": {
+                      "id": ".oELMk#PyW)sW-F(wot)"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_113",
+                  "fields": {
+                    "TEXT": "lambda: click(1)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_114",
+            "x": 480,
+            "y": 570,
+            "fields": {
+              "VAR": {
+                "id": "JT3`HzZ!fYA]rMIpBV9{"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_115",
+                  "fields": {
+                    "VAR": {
+                      "id": "Dq=psVv1u].^%d[-YD/="
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_116",
+                  "fields": {
+                    "TEXT": "2"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_117",
+            "x": 650,
+            "y": 570,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_118",
+                  "fields": {
+                    "VAR": {
+                      "id": "aeS=if`v}/frF|56+VT|"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_119",
+                  "fields": {
+                    "NUM": 3
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_120",
+                  "fields": {
+                    "NUM": 1
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_121",
+            "x": 820,
+            "y": 570,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_122",
+                  "fields": {
+                    "VAR": {
+                      "id": "ryGN)Z8RX=SY-cX{2+Su"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_123",
+                  "fields": {
+                    "TEXT": "lambda: click(2)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_124",
+            "x": 480,
+            "y": 630,
+            "fields": {
+              "VAR": {
+                "id": "gS$t4;N^-,}p)}6.{ns;"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_125",
+                  "fields": {
+                    "VAR": {
+                      "id": "QFR!4co3H7AXb.2?uv^4"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_126",
+                  "fields": {
+                    "TEXT": "3"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_127",
+            "x": 650,
+            "y": 630,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_128",
+                  "fields": {
+                    "VAR": {
+                      "id": "-hIqljaxuqTh+3w)2C8H"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_129",
+                  "fields": {
+                    "NUM": 3
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_130",
+                  "fields": {
+                    "NUM": 2
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_131",
+            "x": 820,
+            "y": 630,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_132",
+                  "fields": {
+                    "VAR": {
+                      "id": "scGE:diZ*q(!*zvoaxq$"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_133",
+                  "fields": {
+                    "TEXT": "lambda: click(3)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_134",
+            "x": 480,
+            "y": 690,
+            "fields": {
+              "VAR": {
+                "id": "qyL!bKwaE`Y~7sRg{IMF"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_135",
+                  "fields": {
+                    "VAR": {
+                      "id": "UN4Q}Il2Gua$`]$P:l4T"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_136",
+                  "fields": {
+                    "TEXT": "−"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_137",
+            "x": 650,
+            "y": 690,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_138",
+                  "fields": {
+                    "VAR": {
+                      "id": "f5La-[%Fv4e~2Fe=br(S"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_139",
+                  "fields": {
+                    "NUM": 3
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_140",
+                  "fields": {
+                    "NUM": 3
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_141",
+            "x": 820,
+            "y": 690,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_142",
+                  "fields": {
+                    "VAR": {
+                      "id": "oZRMzGx?o./YETAN@.Cv"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_143",
+                  "fields": {
+                    "TEXT": "lambda: handle_operator('-')"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_144",
+            "x": 480,
+            "y": 750,
+            "fields": {
+              "VAR": {
+                "id": "9~Zj`{v6`^PjC]fB51eP"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_145",
+                  "fields": {
+                    "VAR": {
+                      "id": "}trP_L7XGDODs0R^4/f{"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_146",
+                  "fields": {
+                    "TEXT": "C"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_147",
+            "x": 650,
+            "y": 750,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_148",
+                  "fields": {
+                    "VAR": {
+                      "id": "m3qXk1uM(SFz$_e!=z?%"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_149",
+                  "fields": {
+                    "NUM": 4
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_150",
+                  "fields": {
+                    "NUM": 0
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_151",
+            "x": 820,
+            "y": 750,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_152",
+                  "fields": {
+                    "VAR": {
+                      "id": "42^WO0z5U^/B{zU9s%-V"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_153",
+                  "fields": {
+                    "TEXT": "clear_all"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_154",
+            "x": 480,
+            "y": 810,
+            "fields": {
+              "VAR": {
+                "id": "[l%s[A2CJDn)dNp2|pqu"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_155",
+                  "fields": {
+                    "VAR": {
+                      "id": ")~s7dhWk#uc,aOp{~/8j"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_156",
+                  "fields": {
+                    "TEXT": "0"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_157",
+            "x": 650,
+            "y": 810,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_158",
+                  "fields": {
+                    "VAR": {
+                      "id": "A5BYF^Qh80T({Tvlj%7o"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_159",
+                  "fields": {
+                    "NUM": 4
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_160",
+                  "fields": {
+                    "NUM": 1
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_161",
+            "x": 820,
+            "y": 810,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_162",
+                  "fields": {
+                    "VAR": {
+                      "id": "aN/=mNmm3*qsP#xoO=p-"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_163",
+                  "fields": {
+                    "TEXT": "lambda: click(0)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_164",
+            "x": 480,
+            "y": 870,
+            "fields": {
+              "VAR": {
+                "id": "mfO~VVp3CU{vjf0l%L3d"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_165",
+                  "fields": {
+                    "VAR": {
+                      "id": "MMmE^)i,Q~!W$4WByGiC"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_166",
+                  "fields": {
+                    "TEXT": "="
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_167",
+            "x": 650,
+            "y": 870,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_168",
+                  "fields": {
+                    "VAR": {
+                      "id": "3{u9CSoR)MqJ=ZkU_Tr6"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_169",
+                  "fields": {
+                    "NUM": 4
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_170",
+                  "fields": {
+                    "NUM": 2
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_171",
+            "x": 820,
+            "y": 870,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_172",
+                  "fields": {
+                    "VAR": {
+                      "id": "4^5Pt#]Oo]kUwqDnm{Kz"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_173",
+                  "fields": {
+                    "TEXT": "calculate"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_button",
+            "id": "b_174",
+            "x": 480,
+            "y": 930,
+            "fields": {
+              "VAR": {
+                "id": "m$wui:SE,c7B3$|wq]x+"
+              }
+            },
+            "inputs": {
+              "PARENT": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_175",
+                  "fields": {
+                    "VAR": {
+                      "id": "cqk5]Jw}s`m%E/yu)W[_"
+                    }
+                  }
+                }
+              },
+              "TEXT": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_176",
+                  "fields": {
+                    "TEXT": "+"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_grid",
+            "id": "gr_177",
+            "x": 650,
+            "y": 930,
+            "inputs": {
+              "WIDGET": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_178",
+                  "fields": {
+                    "VAR": {
+                      "id": "9`f4O!-yF]h[{f167z#P"
+                    }
+                  }
+                }
+              },
+              "ROW": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_179",
+                  "fields": {
+                    "NUM": 4
+                  }
+                }
+              },
+              "COL": {
+                "block": {
+                  "type": "math_number",
+                  "id": "num_180",
+                  "fields": {
+                    "NUM": 3
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_bind_button_command",
+            "id": "bc_181",
+            "x": 820,
+            "y": 930,
+            "inputs": {
+              "BUTTON": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_182",
+                  "fields": {
+                    "VAR": {
+                      "id": "Lc^Sl2lr?_;E/h7{Tc%n"
+                    }
+                  }
+                }
+              },
+              "FUNC": {
+                "block": {
+                  "type": "text",
+                  "id": "txt_183",
+                  "fields": {
+                    "TEXT": "lambda: handle_operator('+')"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "tk_mainloop",
+            "id": "ml_184",
+            "x": 30,
+            "y": 520,
+            "inputs": {
+              "WINDOW": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "vg_185",
+                  "fields": {
+                    "VAR": {
+                      "id": "L_V[_H}qgokNB{KT=]d0"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "procedures_defnoreturn",
+            "id": "pf_186",
+            "x": 1200,
+            "y": 30,
+            "extraState": {
+              "params": [
+                {
+                  "name": "h2",
+                  "id": "r!+fPzJBxR06n0NpJ3h["
+                }
+              ]
+            },
+            "icons": {
+              "comment": {
+                "text": "Describe this function...",
+                "pinned": false,
+                "height": 80,
+                "width": 160
+              }
+            },
+            "fields": {
+              "NAME": "click"
+            },
+            "inputs": {
+              "STACK": {
+                "block": {
+                  "type": "controls_if",
+                  "id": "if_187",
+                  "inputs": {
+                    "IF0": {
+                      "block": {
+                        "type": "logic_operation",
+                        "id": "lo_188",
+                        "fields": {
+                          "OP": "OR"
+                        },
+                        "inputs": {
+                          "A": {
+                            "block": {
+                              "type": "logic_compare",
+                              "id": "lc_189",
+                              "fields": {
+                                "OP": "EQ"
+                              },
+                              "inputs": {
+                                "A": {
+                                  "block": {
+                                    "type": "variables_get",
+                                    "id": "vg_190",
+                                    "fields": {
+                                      "VAR": {
+                                        "id": "RK0yjNgD!ju}hDPwn%4A"
+                                      }
+                                    }
+                                  }
+                                },
+                                "B": {
+                                  "block": {
+                                    "type": "text",
+                                    "id": "txt_191",
+                                    "fields": {
+                                      "TEXT": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "B": {
+                            "block": {
+                              "type": "logic_compare",
+                              "id": "lc_192",
+                              "fields": {
+                                "OP": "EQ"
+                              },
+                              "inputs": {
+                                "A": {
+                                  "block": {
+                                    "type": "variables_get",
+                                    "id": "vg_193",
+                                    "fields": {
+                                      "VAR": {
+                                        "id": "@s7%oOF@`ZStI1.7jWw."
+                                      }
+                                    }
+                                  }
+                                },
+                                "B": {
+                                  "block": {
+                                    "type": "logic_boolean",
+                                    "id": "lb_194",
+                                    "fields": {
+                                      "BOOL": "TRUE"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "DO0": {
+                      "block": {
+                        "type": "variables_set",
+                        "id": "vs_195",
+                        "fields": {
+                          "VAR": {
+                            "id": "lFG`#)sp+v%#*.#Q48-c"
+                          }
+                        },
+                        "inputs": {
+                          "VALUE": {
+                            "block": {
+                              "type": "text",
+                              "id": "txt_196",
+                              "fields": {
+                                "TEXT": ""
+                              }
+                            }
+                          }
+                        },
+                        "next": {
+                          "block": {
+                            "type": "variables_set",
+                            "id": "vs_197",
+                            "fields": {
+                              "VAR": {
+                                "id": "T9E|4qr{:V}FQ;VRip*S"
+                              }
+                            },
+                            "inputs": {
+                              "VALUE": {
+                                "block": {
+                                  "type": "logic_boolean",
+                                  "id": "lb_198",
+                                  "fields": {
+                                    "BOOL": "FALSE"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "next": {
+                    "block": {
+                      "type": "variables_set",
+                      "id": "vs_199",
+                      "fields": {
+                        "VAR": {
+                          "id": "Bc[zPLS[k0Y#p(aK_W1Q"
+                        }
+                      },
+                      "inputs": {
+                        "VALUE": {
+                          "block": {
+                            "type": "text_join",
+                            "id": "tj_200",
+                            "extraState": {
+                              "itemCount": 2
+                            },
+                            "inputs": {
+                              "ADD0": {
+                                "block": {
+                                  "type": "variables_get",
+                                  "id": "vg_201",
+                                  "fields": {
+                                    "VAR": {
+                                      "id": "PJ0]A,Fo3z=?zQe*!O`h"
+                                    }
+                                  }
+                                }
+                              },
+                              "ADD1": {
+                                "block": {
+                                  "type": "variables_get",
+                                  "id": "vg_202",
+                                  "fields": {
+                                    "VAR": {
+                                      "id": "TzcGV,Bn}fVv3gA8W#1`"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "next": {
+                        "block": {
+                          "type": "tk_set_label_text",
+                          "id": "sl_203",
+                          "inputs": {
+                            "LABEL": {
+                              "block": {
+                                "type": "variables_get",
+                                "id": "vg_204",
+                                "fields": {
+                                  "VAR": {
+                                    "id": "t00+ZH|7`3PX$N)1O/]i"
+                                  }
+                                }
+                              }
+                            },
+                            "TEXT": {
+                              "block": {
+                                "type": "variables_get",
+                                "id": "vg_205",
+                                "fields": {
+                                  "VAR": {
+                                    "id": "{2ccdz+pSVyav,Ia9T4Q"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "procedures_defnoreturn",
+            "id": "pf_206",
+            "x": 1200,
+            "y": 380,
+            "extraState": {
+              "params": [
+                {
+                  "name": "s3",
+                  "id": "3bCePyDidyCU|19?NLTL"
+                }
+              ]
+            },
+            "icons": {
+              "comment": {
+                "text": "Describe this function...",
+                "pinned": false,
+                "height": 80,
+                "width": 160
+              }
+            },
+            "fields": {
+              "NAME": "handle_operator"
+            },
+            "inputs": {
+              "STACK": {
+                "block": {
+                  "type": "variables_set",
+                  "id": "vs_207",
+                  "fields": {
+                    "VAR": {
+                      "id": "C_roUZm6{V-cV5|+7PGH"
+                    }
+                  },
+                  "inputs": {
+                    "VALUE": {
+                      "block": {
+                        "type": "variables_get",
+                        "id": "vg_208",
+                        "fields": {
+                          "VAR": {
+                            "id": "*@%ctT`F)5HB{HK;^1F]"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "next": {
+                    "block": {
+                      "type": "variables_set",
+                      "id": "vs_209",
+                      "fields": {
+                        "VAR": {
+                          "id": "(h~D?X(pgZ%Cd7=],zvF"
+                        }
+                      },
+                      "inputs": {
+                        "VALUE": {
+                          "block": {
+                            "type": "variables_get",
+                            "id": "vg_210",
+                            "fields": {
+                              "VAR": {
+                                "id": "mH7.}U3i`]0cCRWd(JPZ"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "next": {
+                        "block": {
+                          "type": "variables_set",
+                          "id": "vs_211",
+                          "fields": {
+                            "VAR": {
+                              "id": "mF6`K28behxeHFV#08qj"
+                            }
+                          },
+                          "inputs": {
+                            "VALUE": {
+                              "block": {
+                                "type": "logic_boolean",
+                                "id": "lb_212",
+                                "fields": {
+                                  "BOOL": "TRUE"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "procedures_defnoreturn",
+            "id": "pf_213",
+            "x": 1200,
+            "y": 580,
+            "icons": {
+              "comment": {
+                "text": "Describe this function...",
+                "pinned": false,
+                "height": 80,
+                "width": 160
+              }
+            },
+            "fields": {
+              "NAME": "calculate"
+            },
+            "inputs": {
+              "STACK": {
+                "block": {
+                  "type": "controls_if",
+                  "id": "if_214",
+                  "inputs": {
+                    "IF0": {
+                      "block": {
+                        "type": "logic_compare",
+                        "id": "lc_215",
+                        "fields": {
+                          "OP": "EQ"
+                        },
+                        "inputs": {
+                          "A": {
+                            "block": {
+                              "type": "variables_get",
+                              "id": "vg_216",
+                              "fields": {
+                                "VAR": {
+                                  "id": "PAi!PJ8K6wIC)`K$kn|d"
+                                }
+                              }
+                            }
+                          },
+                          "B": {
+                            "block": {
+                              "type": "text",
+                              "id": "txt_217",
+                              "fields": {
+                                "TEXT": "+"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "DO0": {
+                      "block": {
+                        "type": "variables_set",
+                        "id": "vs_218",
+                        "fields": {
+                          "VAR": {
+                            "id": "3zLZ`9`CG#w#6Yefp[@O"
+                          }
+                        },
+                        "inputs": {
+                          "VALUE": {
+                            "block": {
+                              "type": "math_arithmetic",
+                              "id": "ma_219",
+                              "fields": {
+                                "OP": "ADD"
+                              },
+                              "inputs": {
+                                "A": {
+                                  "block": {
+                                    "type": "variables_get",
+                                    "id": "vg_220",
+                                    "fields": {
+                                      "VAR": {
+                                        "id": "4oLvK28T;XiF^2W$]?*k"
+                                      }
+                                    }
+                                  }
+                                },
+                                "B": {
+                                  "block": {
+                                    "type": "variables_get",
+                                    "id": "vg_221",
+                                    "fields": {
+                                      "VAR": {
+                                        "id": "J@XIYMYwa[gss-h~_^Oz"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "variables": [
+        {
+          "name": "i",
+          "id": "*LI~lc*q2~HJ|Aui(*94"
+        },
+        {
+          "name": "j",
+          "id": ".=5Qo!=hUQRz6c9U!Mpi"
+        },
+        {
+          "name": "k",
+          "id": "*q{TFOZQJzM.]yW|1^sg"
+        },
+        {
+          "name": "m",
+          "id": "d1tG,Q+f.~]n^s!OSvv~"
+        },
+        {
+          "name": "n",
+          "id": "qFA~h@sSzVHr?LOc)$~K"
+        },
+        {
+          "name": "o",
+          "id": "WzP1]@_-r+*lXo,^?(+J"
+        },
+        {
+          "name": "p",
+          "id": "8orZJZ/%cladpLw6b?wx"
+        },
+        {
+          "name": "q",
+          "id": "tD|~ea[PKxIgCrS2MF-j"
+        },
+        {
+          "name": "r",
+          "id": "^6eS/(QJ4F{[9VVZ,+$B"
+        },
+        {
+          "name": "s",
+          "id": "*{My^#l*=6TuOOUt;0h9"
+        },
+        {
+          "name": "t",
+          "id": "*d@NwLdk6S9QibGJ6HYK"
+        },
+        {
+          "name": "u",
+          "id": "SMc/^h4cxAF1Au[k8f}w"
+        },
+        {
+          "name": "v",
+          "id": "%pFdnKJ=eD9_d[{:}u0t"
+        },
+        {
+          "name": "w",
+          "id": "}h5(Xe75zpI5s[;aXBzS"
+        },
+        {
+          "name": "x",
+          "id": "z-w~XOv.kH5_xq)}K3%."
+        },
+        {
+          "name": "y",
+          "id": "{|*1Y]^TqA{b~b3l!Ffj"
+        },
+        {
+          "name": "z",
+          "id": "O5{nzla0Z(@_IP:u;`{k"
+        },
+        {
+          "name": "a",
+          "id": "sGC5:;L$4B)P8e9|81$n"
+        },
+        {
+          "name": "b",
+          "id": "Ov%9X:a]gTT{1gG}=7j*"
+        },
+        {
+          "name": "c",
+          "id": "/]/VvDt1Jvvr=#O0Fga~"
+        },
+        {
+          "name": "d",
+          "id": "fmr3!PY(3At)=sQ-l?=e"
+        },
+        {
+          "name": "e",
+          "id": "T[ST9QEreOi?D(rktY_]"
+        },
+        {
+          "name": "f",
+          "id": "X=Q**4;CQqW/Vl)%`GUo"
+        },
+        {
+          "name": "g",
+          "id": "jRL)L|sqVJ%wbzbdT204"
+        },
+        {
+          "name": "h",
+          "id": "`|e0s7^}@xZ#z!UoJD0H"
+        },
+        {
+          "name": "i1",
+          "id": "Y_@uyaIv=[HGmkewZM@J"
+        },
+        {
+          "name": "j1",
+          "id": "!K/giaP9Vg6R0X^]-TW?"
+        },
+        {
+          "name": "k1",
+          "id": "K*E|^q!~|I+s$=@jf-y5"
+        },
+        {
+          "name": "m1",
+          "id": "N7]01?byw*pWLY|T*;EE"
+        },
+        {
+          "name": "n1",
+          "id": "TpJ3kZNpab=99)j|-P,O"
+        },
+        {
+          "name": "o1",
+          "id": "s(#-A0ShQ=aRet1(He7K"
+        },
+        {
+          "name": "p1",
+          "id": "%LYa%h|gtL%cj9o-p|!1"
+        },
+        {
+          "name": "q1",
+          "id": "L.R@j1v/c^ekGXC,?$/A"
+        },
+        {
+          "name": "r1",
+          "id": "}y|7ZS[uMxCj^+S=20CQ"
+        },
+        {
+          "name": "s1",
+          "id": "O;y(o%-2Iyj[qVq!ihA%"
+        },
+        {
+          "name": "t1",
+          "id": "Bx}eJ/OwdoeQA)V7Cw8F"
+        },
+        {
+          "name": "u1",
+          "id": "^S0my5lqGVRR[4GXYAMf"
+        },
+        {
+          "name": "v1",
+          "id": "7Uqv5];T3t3QE=^y)~k:"
+        },
+        {
+          "name": "w1",
+          "id": "hhE+.2~YQDV.|6sp_Su%"
+        },
+        {
+          "name": "x1",
+          "id": "bw+U?d8,z!Z?V##Ioi-{"
+        },
+        {
+          "name": "y1",
+          "id": "7xtCj|Wnk3`ZRi)E[B.P"
+        },
+        {
+          "name": "z1",
+          "id": "iq|87X67aR|Pd8@hW=?K"
+        },
+        {
+          "name": "a1",
+          "id": "+p+C`/z}3x(s;)C:v5X2"
+        },
+        {
+          "name": "b1",
+          "id": "r[Zk671+jm.=(pEQVlgZ"
+        },
+        {
+          "name": "c1",
+          "id": ".oELMk#PyW)sW-F(wot)"
+        },
+        {
+          "name": "d1",
+          "id": "JT3`HzZ!fYA]rMIpBV9{"
+        },
+        {
+          "name": "e1",
+          "id": "Dq=psVv1u].^%d[-YD/="
+        },
+        {
+          "name": "f1",
+          "id": "aeS=if`v}/frF|56+VT|"
+        },
+        {
+          "name": "g1",
+          "id": "ryGN)Z8RX=SY-cX{2+Su"
+        },
+        {
+          "name": "h1",
+          "id": "gS$t4;N^-,}p)}6.{ns;"
+        },
+        {
+          "name": "i2",
+          "id": "QFR!4co3H7AXb.2?uv^4"
+        },
+        {
+          "name": "j2",
+          "id": "-hIqljaxuqTh+3w)2C8H"
+        },
+        {
+          "name": "k2",
+          "id": "scGE:diZ*q(!*zvoaxq$"
+        },
+        {
+          "name": "m2",
+          "id": "qyL!bKwaE`Y~7sRg{IMF"
+        },
+        {
+          "name": "n2",
+          "id": "UN4Q}Il2Gua$`]$P:l4T"
+        },
+        {
+          "name": "o2",
+          "id": "f5La-[%Fv4e~2Fe=br(S"
+        },
+        {
+          "name": "p2",
+          "id": "oZRMzGx?o./YETAN@.Cv"
+        },
+        {
+          "name": "q2",
+          "id": "9~Zj`{v6`^PjC]fB51eP"
+        },
+        {
+          "name": "r2",
+          "id": "}trP_L7XGDODs0R^4/f{"
+        },
+        {
+          "name": "s2",
+          "id": "m3qXk1uM(SFz$_e!=z?%"
+        },
+        {
+          "name": "t2",
+          "id": "42^WO0z5U^/B{zU9s%-V"
+        },
+        {
+          "name": "u2",
+          "id": "[l%s[A2CJDn)dNp2|pqu"
+        },
+        {
+          "name": "v2",
+          "id": ")~s7dhWk#uc,aOp{~/8j"
+        },
+        {
+          "name": "w2",
+          "id": "A5BYF^Qh80T({Tvlj%7o"
+        },
+        {
+          "name": "x2",
+          "id": "aN/=mNmm3*qsP#xoO=p-"
+        },
+        {
+          "name": "y2",
+          "id": "mfO~VVp3CU{vjf0l%L3d"
+        },
+        {
+          "name": "z2",
+          "id": "MMmE^)i,Q~!W$4WByGiC"
+        },
+        {
+          "name": "a2",
+          "id": "3{u9CSoR)MqJ=ZkU_Tr6"
+        },
+        {
+          "name": "b2",
+          "id": "4^5Pt#]Oo]kUwqDnm{Kz"
+        },
+        {
+          "name": "c2",
+          "id": "m$wui:SE,c7B3$|wq]x+"
+        },
+        {
+          "name": "d2",
+          "id": "cqk5]Jw}s`m%E/yu)W[_"
+        },
+        {
+          "name": "e2",
+          "id": "9`f4O!-yF]h[{f167z#P"
+        },
+        {
+          "name": "f2",
+          "id": "Lc^Sl2lr?_;E/h7{Tc%n"
+        },
+        {
+          "name": "g2",
+          "id": "L_V[_H}qgokNB{KT=]d0"
+        },
+        {
+          "name": "h2",
+          "id": "r!+fPzJBxR06n0NpJ3h["
+        },
+        {
+          "name": "i3",
+          "id": "RK0yjNgD!ju}hDPwn%4A"
+        },
+        {
+          "name": "j3",
+          "id": "@s7%oOF@`ZStI1.7jWw."
+        },
+        {
+          "name": "k3",
+          "id": "lFG`#)sp+v%#*.#Q48-c"
+        },
+        {
+          "name": "m3",
+          "id": "T9E|4qr{:V}FQ;VRip*S"
+        },
+        {
+          "name": "n3",
+          "id": "Bc[zPLS[k0Y#p(aK_W1Q"
+        },
+        {
+          "name": "o3",
+          "id": "PJ0]A,Fo3z=?zQe*!O`h"
+        },
+        {
+          "name": "p3",
+          "id": "TzcGV,Bn}fVv3gA8W#1`"
+        },
+        {
+          "name": "q3",
+          "id": "t00+ZH|7`3PX$N)1O/]i"
+        },
+        {
+          "name": "r3",
+          "id": "{2ccdz+pSVyav,Ia9T4Q"
+        },
+        {
+          "name": "s3",
+          "id": "3bCePyDidyCU|19?NLTL"
+        },
+        {
+          "name": "t3",
+          "id": "C_roUZm6{V-cV5|+7PGH"
+        },
+        {
+          "name": "u3",
+          "id": "*@%ctT`F)5HB{HK;^1F]"
+        },
+        {
+          "name": "v3",
+          "id": "(h~D?X(pgZ%Cd7=],zvF"
+        },
+        {
+          "name": "w3",
+          "id": "mH7.}U3i`]0cCRWd(JPZ"
+        },
+        {
+          "name": "x3",
+          "id": "mF6`K28behxeHFV#08qj"
+        },
+        {
+          "name": "y3",
+          "id": "PAi!PJ8K6wIC)`K$kn|d"
+        },
+        {
+          "name": "z3",
+          "id": "3zLZ`9`CG#w#6Yefp[@O"
+        },
+        {
+          "name": "a3",
+          "id": "4oLvK28T;XiF^2W$]?*k"
+        },
+        {
+          "name": "b3",
+          "id": "J@XIYMYwa[gss-h~_^Oz"
+        }
+      ]
+    },
+    "pythonCode": "import tkinter as tk\n\ni = None\nm = None\ns = None\nw = None\na = None\ne = None\ni1 = None\nn1 = None\nr1 = None\nv1 = None\nz1 = None\nd1 = None\nh1 = None\nm2 = None\nq2 = None\nu2 = None\ny2 = None\nc2 = None\nh2 = None\ns3 = None\nj = None\nk = None\nn = None\no = None\np = None\nq = None\nr = None\nt = None\nu = None\nv = None\nx = None\ny = None\nz = None\nb = None\nc = None\nd = None\nf = None\ng = None\nh = None\nj1 = None\nk1 = None\nm1 = None\no1 = None\np1 = None\nq1 = None\ns1 = None\nt1 = None\nu1 = None\nw1 = None\nx1 = None\ny1 = None\na1 = None\nb1 = None\nc1 = None\ne1 = None\nf1 = None\ng1 = None\ni2 = None\nj2 = None\nk2 = None\nn2 = None\no2 = None\np2 = None\nr2 = None\ns2 = None\nt2 = None\nv2 = None\nw2 = None\nx2 = None\nz2 = None\na2 = None\nb2 = None\nd2 = None\ne2 = None\nf2 = None\ng2 = None\nt3 = None\nk3 = None\nn3 = None\nu3 = None\nv3 = None\nz3 = None\nm3 = None\nw3 = None\nx3 = None\ny3 = None\ni3 = None\nj3 = None\no3 = None\np3 = None\nq3 = None\nr3 = None\na3 = None\nb3 = None\n\n# Describe this function...\ndef click(h2):\n  global i, m, s, w, a, e, i1, n1, r1, v1, z1, d1, h1, m2, q2, u2, y2, c2, s3, j, k, n, o, p, q, r, t, u, v, x, y, z, b, c, d, f, g, h, j1, k1, m1, o1, p1, q1, s1, t1, u1, w1, x1, y1, a1, b1, c1, e1, f1, g1, i2, j2, k2, n2, o2, p2, r2, s2, t2, v2, w2, x2, z2, a2, b2, d2, e2, f2, g2, t3, k3, n3, u3, v3, z3, m3, w3, x3, y3, i3, j3, o3, p3, q3, r3, a3, b3\n  if i3 == '0' or j3 == True:\n    k3 = ''\n    m3 = False\n  n3 = str(o3) + str(p3)\n  q3.config(text=r3)\n\n# Describe this function...\ndef handle_operator(s3):\n  global i, m, s, w, a, e, i1, n1, r1, v1, z1, d1, h1, m2, q2, u2, y2, c2, h2, j, k, n, o, p, q, r, t, u, v, x, y, z, b, c, d, f, g, h, j1, k1, m1, o1, p1, q1, s1, t1, u1, w1, x1, y1, a1, b1, c1, e1, f1, g1, i2, j2, k2, n2, o2, p2, r2, s2, t2, v2, w2, x2, z2, a2, b2, d2, e2, f2, g2, t3, k3, n3, u3, v3, z3, m3, w3, x3, y3, i3, j3, o3, p3, q3, r3, a3, b3\n  t3 = u3\n  v3 = w3\n  x3 = True\n\n# Describe this function...\ndef calculate():\n  global i, m, s, w, a, e, i1, n1, r1, v1, z1, d1, h1, m2, q2, u2, y2, c2, h2, s3, j, k, n, o, p, q, r, t, u, v, x, y, z, b, c, d, f, g, h, j1, k1, m1, o1, p1, q1, s1, t1, u1, w1, x1, y1, a1, b1, c1, e1, f1, g1, i2, j2, k2, n2, o2, p2, r2, s2, t2, v2, w2, x2, z2, a2, b2, d2, e2, f2, g2, t3, k3, n3, u3, v3, z3, m3, w3, x3, y3, i3, j3, o3, p3, q3, r3, a3, b3\n  if y3 == '+':\n    z3 = a3 + b3\n\n\ni = tk.Tk()\n\ns = tk.Button(t, text='7')\n\nu.grid(row=1, column=0, padx=5, pady=5)\n\nv.config(command=lambda: click(7))\n\nj.title('Calculator')\n\nw = tk.Button(x, text='8')\n\ny.grid(row=1, column=1, padx=5, pady=5)\n\nz.config(command=lambda: click(8))\n\nk.geometry('400x520')\n\na = tk.Button(b, text='9')\n\nc.grid(row=1, column=2, padx=5, pady=5)\n\nd.config(command=lambda: click(9))\n\ne = tk.Button(f, text='÷')\n\nm = tk.Label(n, text='0')\n\ng.grid(row=1, column=3, padx=5, pady=5)\n\nh.config(command=lambda: handle_operator('/'))\n\no.grid(row=0, column=0, padx=5, pady=5)\n\ni1 = tk.Button(j1, text='4')\n\nk1.grid(row=2, column=0, padx=5, pady=5)\n\np.config(font=('Segoe UI', 22, \"bold\"))\n\nm1.config(command=lambda: click(4))\n\nn1 = tk.Button(o1, text='5')\n\np1.grid(row=2, column=1, padx=5, pady=5)\n\nq1.config(command=lambda: click(5))\n\nq.config(bg='#ecf0f1')\n\nr1 = tk.Button(s1, text='6')\n\nt1.grid(row=2, column=2, padx=5, pady=5)\n\nu1.config(command=lambda: click(6))\n\nr.config(fg='#2c3e50')\n\nv1 = tk.Button(w1, text='×')\n\nx1.grid(row=2, column=3, padx=5, pady=5)\n\ny1.config(command=lambda: handle_operator('*'))\n\ng2.mainloop()\n\nz1 = tk.Button(a1, text='1')\n\nb1.grid(row=3, column=0, padx=5, pady=5)\n\nc1.config(command=lambda: click(1))\n\nd1 = tk.Button(e1, text='2')\n\nf1.grid(row=3, column=1, padx=5, pady=5)\n\ng1.config(command=lambda: click(2))\n\nh1 = tk.Button(i2, text='3')\n\nj2.grid(row=3, column=2, padx=5, pady=5)\n\nk2.config(command=lambda: click(3))\n\nm2 = tk.Button(n2, text='−')\n\no2.grid(row=3, column=3, padx=5, pady=5)\n\np2.config(command=lambda: handle_operator('-'))\n\nq2 = tk.Button(r2, text='C')\n\ns2.grid(row=4, column=0, padx=5, pady=5)\n\nt2.config(command=clear_all)\n\nu2 = tk.Button(v2, text='0')\n\nw2.grid(row=4, column=1, padx=5, pady=5)\n\nx2.config(command=lambda: click(0))\n\ny2 = tk.Button(z2, text='=')\n\na2.grid(row=4, column=2, padx=5, pady=5)\n\nb2.config(command=calculate)\n\nc2 = tk.Button(d2, text='+')\n\ne2.grid(row=4, column=3, padx=5, pady=5)\n\nf2.config(command=lambda: handle_operator('+'))\n",
+    "createdAt": "2026-06-10T14:00:00.001Z"
   }
 ]

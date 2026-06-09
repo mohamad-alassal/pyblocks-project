@@ -455,20 +455,26 @@ function setupEventListeners() {
 function runPythonCode() {
     if (!workspace) return;
 
-    const code = Blockly.Python.workspaceToCode(workspace);
     const consoleDisplay = document.getElementById('consoleDisplay');
     const stdinInput = document.getElementById('stdinInput');
     const stdin = stdinInput ? stdinInput.value : '';
 
-    consoleDisplay.textContent = '>>> Running code on server...\n';
+    consoleDisplay.textContent = '>>> Running...\n';
+
+    // Check if workspace has a raw_python block — if so, use stored pythonCode
+    const rawBlocks = workspace.getBlocksByType('raw_python', false);
+    let code;
+    if (rawBlocks.length > 0 && projectData && projectData.pythonCode) {
+        code = projectData.pythonCode;
+    } else {
+        code = Blockly.Python.workspaceToCode(workspace);
+    }
 
     saveProjectToServer(false);
 
     fetch('/api/run', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: code, stdin: stdin })
     })
         .then(response => {
@@ -478,23 +484,32 @@ function runPythonCode() {
         .then(result => {
             consoleDisplay.textContent = '';
 
+            if (result.isGui) {
+                consoleDisplay.style.color = '#10b981';
+                consoleDisplay.textContent = result.stdout;
+                return;
+            }
+
+            consoleDisplay.style.color = '#10b981';
+
             if (result.stdout) {
                 consoleDisplay.textContent += result.stdout;
             }
 
             if (result.stderr) {
+                consoleDisplay.style.color = '#f87171';
                 consoleDisplay.textContent += `\n[ERROR]:\n${result.stderr}`;
             }
 
             if (result.timedOut) {
-                consoleDisplay.textContent += `\n\n[TIMEOUT]: The program was forcefully stopped (exceeded 5-second limit - your code may contain an infinite loop)`;
+                consoleDisplay.textContent += `\n\n[TIMEOUT]: Program stopped after 10 seconds.`;
             }
 
-            consoleDisplay.textContent += `\n\n>>> Execution completed (Exit code: ${result.exitCode})`;
+            consoleDisplay.textContent += `\n\n>>> Done (exit code: ${result.exitCode})`;
         })
         .catch(error => {
             console.error('Error running Python code:', error);
-            consoleDisplay.textContent += `\n[CRITICAL ERROR]: Failed to connect to the server to run the code.`;
+            consoleDisplay.textContent += `\n[ERROR]: Failed to connect to the server.`;
         });
 }
 
